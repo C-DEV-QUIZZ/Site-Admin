@@ -1,5 +1,16 @@
 # AdministrationSite
 
+17/12/20:  
+- Creation du projet du site d'administration, puis création des permières vues (simple).  
+- Obligations de se connecter sinon renvoi à la page connexion et gestion de l'inscription avec email.
+
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------
+
+
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.0.2.
 
 ## Development server

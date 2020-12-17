@@ -1,0 +1,12 @@
+.bloc{
+    height: 50px;
+    width: 100%;
+}
+.menu{
+    background: black;
+    color: white;
+}
+
+.imgResponsive{
+    height: 100%;
+}
