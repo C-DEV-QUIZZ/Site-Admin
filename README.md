@@ -4,6 +4,11 @@
 - Creation du projet du site d'administration, puis création des permières vues (simple).  
 - Obligations de se connecter sinon renvoi à la page connexion et gestion de l'inscription avec email.
 
+19/12/2020:
+ - Ajout de la sécurité de la connexion
+ - Ajout diu système d'inscription avec confirmation
+ - Ajout du blocage de la navigation
+ - Ajout de la possibilité de désactiver l'inscription d'un admin
 
 
 
