@@ -1,8 +1,13 @@
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
+import { Cookie } from 'ng2-cookies';
+import { AjaxService } from './service/ajax.service';
 
 
 @Injectable()
 export class Globals {
+
+    constructor(private router: Router,public ajaxService: AjaxService){}
 
     public static COOKIE_NAME:string = "Zz3Qu177";
 
@@ -29,4 +34,28 @@ export class Globals {
         return true;
     }
     
+
+    public ifAdminIsConnect(){
+        let isConnect = Cookie.get(Globals.COOKIE_NAME) ? true:false;
+        if(!isConnect)
+        {
+            this.router.navigate(['/connexion']);
+            return;
+        }
+        else{
+            let autorise:Boolean = false;
+
+            let cookie = Cookie.get(Globals.COOKIE_NAME);
+
+            this.ajaxService.postifUserAuthorizedToNavigate(cookie).subscribe(
+                (responseBody) => {
+                    autorise = Boolean(responseBody);
+                },
+                (error)=>{
+                    this.router.navigate(['/connexion']);
+                    return;
+                });
+        }
+    }
+
 }

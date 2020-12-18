@@ -1,3 +1,25 @@
+<div *ngIf="isInscriptionConfirm;then contenu_bon else contenu_pas_bon">Le contenu saisi ici sera ignoré.</div>
+
+<ng-template #contenu_bon>
+    <div class="remark success w-75">
+        <h1><span class="mif-info"></span> {{ message }}</h1>
+    </div>
+</ng-template>  
+
+<ng-template #contenu_pas_bon>
+    <div class="remark alert w-75">
+        <h1><span class="mif-info"></span> {{ message }}</h1>
+    </div>
+</ng-template>        
 
 
-<p>{{ message}}</p>
+
+<a href="/connexion" class="command-button primary rounded">
+    <span class="mif-user icon"></span>
+    <span class="caption">
+        Connexion
+        <small>Se rendre à la page de connexion</small>
+    </span>
+</a>
+
+

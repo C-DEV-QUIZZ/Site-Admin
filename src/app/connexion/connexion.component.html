@@ -1,5 +1,5 @@
 <div class="blocForm">
-    <ul data-role="tabs" class="tabs" data-tabs-type="group" data-expand="true">
+    <ul data-role="tabs" class="tabs" data-tabs-type="group" data-expand="true" >
         <li class="tabsLi" ><a class="tabsLi2" href="#_target_1" >CONNEXION</a></li>
         <li class="tabsLi" ><a class="tabsLi2" href="#_target_2" >INSCRIPTION</a></li>
     </ul>     
@@ -21,38 +21,50 @@
         </form>
     </div>
 
-    <div id="_target_2">
-        <form data-role="validator" class="bloc" (submit)="beforeInscription()">
-            <input [(ngModel)]="nom" [ngModelOptions]="{standalone: true}" type="text" id="nom" placeholder="Nom" name="nom" data-role="input" class="row" required data-validate="required minlength=2"
-            data-prepend="<span class='mif-user'></span>">
-            <span class="invalid_feedback">2 caractères minimum ...</span>
+    <div *ngIf="modeInscription;then modeInscriptionActif else modeInscriptionInactif">Le contenu saisi ici sera ignoré.</div>
+
+    <ng-template #modeInscriptionActif>
+        <div id="_target_2" style="display: none;">
+            <form data-role="validator" class="bloc" (submit)="beforeInscription()">
+                <input [(ngModel)]="nom" [ngModelOptions]="{standalone: true}" type="text" id="nom" placeholder="Nom" name="nom" data-role="input" class="row" required data-validate="required minlength=2"
+                data-prepend="<span class='mif-user'></span>">
+                <span class="invalid_feedback">2 caractères minimum ...</span>
 
 
-            <input [(ngModel)]="prenom" [ngModelOptions]="{standalone: true}" type="text" id="prenom" placeholder="Prenom" name="prenom" data-role="input" class="row" required data-validate="required minlength=2"
-            data-prepend="<span class='mif-user'></span>">
-            <span class="invalid_feedback">2 caractères minimum ...</span>
+                <input [(ngModel)]="prenom" [ngModelOptions]="{standalone: true}" type="text" id="prenom" placeholder="Prenom" name="prenom" data-role="input" class="row" required data-validate="required minlength=2"
+                data-prepend="<span class='mif-user'></span>">
+                <span class="invalid_feedback">2 caractères minimum ...</span>
 
 
-            <input [(ngModel)]="emailInscription" [ngModelOptions]="{standalone: true}" type="email" id="emailInscription" placeholder="Email" name="email" data-role="input" class="row" required data-validate="required email"
-            data-prepend="<span class='mif-user'></span>">
-            <span class="invalid_feedback">format de l'adresse email incorrect</span>
+                <input [(ngModel)]="emailInscription" [ngModelOptions]="{standalone: true}" type="email" id="emailInscription" placeholder="Email" name="email" data-role="input" class="row" required data-validate="required email"
+                data-prepend="<span class='mif-user'></span>">
+                <span class="invalid_feedback">format de l'adresse email incorrect</span>
 
 
-            <input [(ngModel)]="passwordInscription" [ngModelOptions]="{standalone: true}" type="password" id="passwordInscription" placeholder="mot de passe" name="password" data-role="input" class="row" required
-            data-prepend="<span class='mif-lock'></span>" data-validate="required minlength=8">
-            <span class="invalid_feedback">format mot de passe incorrect 8 caract min</span>
+                <input [(ngModel)]="passwordInscription" [ngModelOptions]="{standalone: true}" type="password" id="passwordInscription" placeholder="mot de passe" name="password" data-role="input" class="row" required
+                data-prepend="<span class='mif-lock'></span>" data-validate="required minlength=8">
+                <span class="invalid_feedback">format mot de passe incorrect 8 caract min</span>
 
 
-            <input [(ngModel)]="confirmPassword" [ngModelOptions]="{standalone: true}" type="password" id="confirmPassword" placeholder="confirmation mot de passe" data-role="input" class="row" required 
-            data-prepend="<span class='mif-lock'></span>" data-validate="required minlength=8 compare=passwordInscription">
-            <span class="invalid_feedback">la confirmation ne correspond pas au mot de passe</span>
+                <input [(ngModel)]="confirmPassword" [ngModelOptions]="{standalone: true}" type="password" id="confirmPassword" placeholder="confirmation mot de passe" data-role="input" class="row" required 
+                data-prepend="<span class='mif-lock'></span>" data-validate="required minlength=8 compare=passwordInscription">
+                <span class="invalid_feedback">la confirmation ne correspond pas au mot de passe</span>
 
-            <div class="row btnValide">
-                <button type="button" (click)="clearFormulaire()" class="button btnAction alert  shadowed"><span class="mif-cross"></span></button>
-                <button id="btnConfirmInscription" class="button btnAction success  shadowed"><span class="mif-checkmark"></span></button>
-                <div data-role="activity" data-type="ring" data-style="color" id="attConfirmInscription"></div>
-            </div>
-        </form>
-    </div>
+                <div class="row btnValide">
+                    <button type="button" (click)="clearFormulaire()" class="button btnAction alert  shadowed"><span class="mif-cross"></span></button>
+                    <button id="btnConfirmInscription" class="button btnAction success  shadowed"><span class="mif-checkmark"></span></button>
+                    <div data-role="activity" data-type="ring" data-style="color" id="attConfirmInscription"></div>
+                </div>
+            </form>
+        </div>
+    </ng-template>
+
+    <ng-template #modeInscriptionInactif>
+        <div id="_target_2">
+            <span class="mif-info mif-5x fg-red float-left"></span>
+            <p class="fg-white text-center text-leader">Le mode inscription est actuellement désactivé. </p>
+        </div>        
+    </ng-template>
+
 </div>
 

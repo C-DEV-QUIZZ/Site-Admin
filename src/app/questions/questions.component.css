@@ -4,14 +4,9 @@
     width: 100%;
     margin: 0;
     flex-direction: column;
-    justify-content: space-evenly;
+    justify-content: flex-start;
     align-items: center;
     flex-wrap: wrap;
     padding-top: 50px;
 
-}
-.remark{
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }

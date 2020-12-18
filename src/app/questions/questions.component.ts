@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { Globals } from '../global';
 
 @Component({
-  selector: 'app-accueil',
-  templateUrl: './accueil.component.html',
-  styleUrls: ['./accueil.component.css']
+  selector: 'app-questions',
+  templateUrl: './questions.component.html',
+  styleUrls: ['./questions.component.css']
 })
-export class AccueilComponent implements OnInit {
+export class QuestionsComponent implements OnInit {
 
   constructor(private globals:Globals) { }
 

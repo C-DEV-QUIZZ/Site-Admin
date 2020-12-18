@@ -10,6 +10,8 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { Globals } from './global';
 import { ConfirmationInscriptionComponent } from './confirmation-inscription/confirmation-inscription.component';
+import { ErrorComponent } from './error/error.component';
+import { QuestionsComponent } from './questions/questions.component';
 
 
 @NgModule({
@@ -18,7 +20,9 @@ import { ConfirmationInscriptionComponent } from './confirmation-inscription/con
     AccueilComponent,
     ConnexionComponent,
     MenuComponent,
-    ConfirmationInscriptionComponent
+    ConfirmationInscriptionComponent,
+    ErrorComponent,
+    QuestionsComponent
   ],
   imports: [
     BrowserModule,

@@ -18,19 +18,24 @@ export class AjaxService{
         this.http=http;
     }
     
-    private urlUtilisateurs = this.adresse+"utilisateurs"
+    private urlConnexion = this.adresse+"administrateurs/connexion"
 
-    private urlConnexion = this.adresse+"utilisateurs/connexion"
+    private urlInscription= this.adresse+"administrateurs/inscription"
 
-    private urlInscription= this.adresse+"utilisateurs/inscription"
+    private urlConfirmInscription = this.adresse+"administrateurs/confirmationInscription"
 
-    private urlConfirmInscription = this.adresse+"utilisateurs/confirmationInscription"
+    private urlIfUserAuthorizedToNavigate = this.adresse+"administrateurs/authorized"   
 
-    getUtilisateurs(){
-        return this.http.get(this.urlUtilisateurs);
+    private urlModeInscriptionSiteAdmin = this.adresse+"parametres/InscriptionSiteAdmin"
+
+
+
+    
+    getModeInscriptionSiteAdmin(){
+        return this.http.get(this.urlModeInscriptionSiteAdmin);
     }
 
-    getConfirmInscription(data){
+    postConfirmInscription(data){
         return this.http.post(this.urlConfirmInscription,data, {responseType:'text'});
     }
 
@@ -41,5 +46,8 @@ export class AjaxService{
         return this.http.post(this.urlInscription,data);
     }
 
+    postifUserAuthorizedToNavigate(data){
+        return this.http.post(this.urlIfUserAuthorizedToNavigate,data);
+    }
 
 }
