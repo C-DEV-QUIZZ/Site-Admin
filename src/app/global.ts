@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Cookie } from 'ng2-cookies';
 import { AjaxService } from './service/ajax.service';
-
+declare let toastr : any;
 
 @Injectable()
 export class Globals {
@@ -10,6 +10,11 @@ export class Globals {
     constructor(private router: Router,public ajaxService: AjaxService){}
 
     public static COOKIE_NAME:string = "Zz3Qu177";
+    public static COMPTE_STRING:string = "compte";
+    public static CONNEXION_STRING:string = "connexion";
+
+
+    libelle_compte= Cookie.get(Globals.COOKIE_NAME) ? `compte`:"connexion";
 
     // todo si reviens sur le site 
     //Compte: string = Cookie.get(COOKIE_NAME) ? `Gestion de compte`:"Compte";
@@ -47,11 +52,31 @@ export class Globals {
 
             let cookie = Cookie.get(Globals.COOKIE_NAME);
 
-            this.ajaxService.postifUserAuthorizedToNavigate(cookie).subscribe(
+            this.ajaxService.postifUserAuthorized(cookie).subscribe(
                 (responseBody) => {
                     autorise = Boolean(responseBody);
                 },
                 (error)=>{
+
+                    toastr.error(`Erreur critique :<br> <small class="text-ultralight">${error.error}</small>`,"",{
+                        "closeButton": false,
+                        "debug": false,
+                        "newestOnTop": true,
+                        "progressBar": true,
+                        "positionClass": "toast-top-right",
+                        "preventDuplicates": false,
+                        "onclick": null,
+                        "showDuration": "300",
+                        "hideDuration": "1000",
+                        "timeOut": "5000",
+                        "extendedTimeOut": "1000",
+                        "showEasing": "swing",
+                        "hideEasing": "linear",
+                        "showMethod": "fadeIn",
+                        "hideMethod": "fadeOut"
+                    });
+                    Cookie.deleteAll();
+                    this.libelle_compte = Globals.CONNEXION_STRING;    
                     this.router.navigate(['/connexion']);
                     return;
                 });

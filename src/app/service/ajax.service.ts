@@ -46,7 +46,7 @@ export class AjaxService{
         return this.http.post(this.urlInscription,data);
     }
 
-    postifUserAuthorizedToNavigate(data){
+    postifUserAuthorized(data){
         return this.http.post(this.urlIfUserAuthorizedToNavigate,data);
     }
 
