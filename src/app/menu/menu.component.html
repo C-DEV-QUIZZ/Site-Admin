@@ -4,13 +4,16 @@
             <img class="imgResponsive"   src="../../assets/img/questionMarks.png" alt="">
         </a>
     
-        <ul class="app-bar-menu">
+        <ul class="app-bar-menu bar-menu">
             <li><a href="/">Accueil</a></li>
             <li>
-                <a href="/connexion">Connexion</a>
+                <a href="/gestion-utilisateur">Gestion utilisateur</a>
             </li>
             <li><a href="/questions">Questions</a></li>
-            <li><a href="#">Contacts</a></li>
+            <li><a href="/creation">Création</a></li>
+            <li class="ml-auto">
+                <a href="/{{ global.libelle_compte }}" class="text-cap">{{ global.libelle_compte }}</a>
+            </li>
         </ul>
     </div>
 </div>

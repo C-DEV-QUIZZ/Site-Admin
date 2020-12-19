@@ -12,6 +12,9 @@ import { Globals } from './global';
 import { ConfirmationInscriptionComponent } from './confirmation-inscription/confirmation-inscription.component';
 import { ErrorComponent } from './error/error.component';
 import { QuestionsComponent } from './questions/questions.component';
+import { GestionCompteComponent } from './gestion-compte/gestion-compte.component';
+import { GestionUtilisateurComponent } from './gestion-utilisateur/gestion-utilisateur.component';
+import { CreationComponent } from './creation/creation.component';
 
 
 @NgModule({
@@ -22,7 +25,10 @@ import { QuestionsComponent } from './questions/questions.component';
     MenuComponent,
     ConfirmationInscriptionComponent,
     ErrorComponent,
-    QuestionsComponent
+    QuestionsComponent,
+    GestionCompteComponent,
+    GestionUtilisateurComponent,
+    CreationComponent
   ],
   imports: [
     BrowserModule,

@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { Cookie } from 'ng2-cookies';
 import { Globals } from '../global';
 import { AjaxService } from '../service/ajax.service';
+declare let toastr: any;
 
 @Component({
     selector: 'app-connexion',
@@ -29,8 +30,7 @@ export class ConnexionComponent implements OnInit {
 
     ngOnInit(): void {
 
-        //recupère et retourne false si le mode inscription est désactivé dans la BDD
-
+        //retourne false si le mode inscription est désactivé dans la BDD
         this.ajaxService.getModeInscriptionSiteAdmin().subscribe(
         (responseBody) => {
             this.modeInscription = Boolean (responseBody);
@@ -70,47 +70,6 @@ export class ConnexionComponent implements OnInit {
             document.getElementById(loadElement).style.display = "none";
         }
     }
-
-    /**
-     * 
-     */
-    beforeConnexion(): boolean {
-
-        this.activeChargement(true, "btnConfirmConnexion", "attConfirmConnnexion");
-
-        let valideMailConnexion: boolean = this.globals.validateEmail(this.emailConnexion);
-        let isEmptyOrSpacesPasswordConnexion: boolean = this.globals.isEmptyOrSpaces(this.passwordConnexion);
-
-
-        if (!valideMailConnexion || isEmptyOrSpacesPasswordConnexion) {
-            this.activeChargement(false, "btnConfirmConnexion", "attConfirmConnnexion");
-            return false;
-        }
-        else
-            this.sendConnexion();
-
-    }
-
-    sendConnexion() {
-        let data = {
-            "email": this.emailConnexion,
-            "password": this.passwordConnexion
-        }
-        this.ajaxService.postConnexion(data).subscribe(
-            (response) => {
-                let stringResult = JSON.stringify(response);
-                let JsonResult = JSON.parse(stringResult);
-                let timeConnexion = 0.041; // 1h
-                Cookie.set(Globals.COOKIE_NAME, JsonResult.token, timeConnexion);
-                this.activeChargement(false,"btnConfirmConnexion","attConfirmConnnexion");
-                this.router.navigate(['/']);
-            },
-            (error) => {
-                this.activeChargement(false,"btnConfirmConnexion","attConfirmConnnexion");
-            });
-    }
-
-
 
     /**
      * 
@@ -164,12 +123,124 @@ export class ConnexionComponent implements OnInit {
         this.ajaxService.postInscription(data).subscribe(
             (response) => {                           //Next callback
                 console.log(response);
+                toastr.success("Un email de confirmation à été envoyé","Inscription Ok",{
+                    "closeButton": false,
+                    "debug": false,
+                    "newestOnTop": false,
+                    "progressBar": true,
+                    "positionClass": "toast-top-right",
+                    "preventDuplicates": false,
+                    "onclick": null,
+                    "showDuration": "300",
+                    "hideDuration": "1000",
+                    "timeOut": "5000",
+                    "extendedTimeOut": "1000",
+                    "showEasing": "swing",
+                    "hideEasing": "linear",
+                    "showMethod": "fadeIn",
+                    "hideMethod": "fadeOut"
+                });
                 this.activeChargement(false, "btnConfirmInscription", "attConfirmInscription");
             },
             (error) => {                              //Error callback
-                console.log(error);
+                toastr.error(`Erreur lors de l'enregistrement :<br> <small class="text-ultralight">${error.error}</small>`,"",{
+                    "closeButton": false,
+                    "debug": false,
+                    "newestOnTop": true,
+                    "progressBar": true,
+                    "positionClass": "toast-top-right",
+                    "preventDuplicates": false,
+                    "onclick": null,
+                    "showDuration": "300",
+                    "hideDuration": "1000",
+                    "timeOut": "5000",
+                    "extendedTimeOut": "1000",
+                    "showEasing": "swing",
+                    "hideEasing": "linear",
+                    "showMethod": "fadeIn",
+                    "hideMethod": "fadeOut"
+                });
                 this.activeChargement(false, "btnConfirmInscription", "attConfirmInscription");
             }
         )
     }
+
+
+
+    /**
+     * 
+     */
+    beforeConnexion(): boolean {
+
+        this.activeChargement(true, "btnConfirmConnexion", "attConfirmConnnexion");
+
+        let valideMailConnexion: boolean = this.globals.validateEmail(this.emailConnexion);
+        let isEmptyOrSpacesPasswordConnexion: boolean = this.globals.isEmptyOrSpaces(this.passwordConnexion);
+
+
+        if (!valideMailConnexion || isEmptyOrSpacesPasswordConnexion) {
+            this.activeChargement(false, "btnConfirmConnexion", "attConfirmConnnexion");
+            return false;
+        }
+        else
+            this.sendConnexion();
+
+    }
+
+    sendConnexion() {
+        let data = {
+            "email": this.emailConnexion,
+            "password": this.passwordConnexion
+        }
+        this.ajaxService.postConnexion(data).subscribe(
+            (response) => {
+                let stringResult = JSON.stringify(response);
+                let JsonResult = JSON.parse(stringResult);
+                let timeConnexion = 0.041; // 1h
+                Cookie.set(Globals.COOKIE_NAME, JsonResult.token, timeConnexion);
+
+                this.globals.libelle_compte = Globals.COMPTE_STRING;    
+
+                toastr.success(`Bienvenue ${JsonResult.nom} ${JsonResult.prenom} `,"Connexion Ok",{
+                    "closeButton": false,
+                    "debug": false,
+                    "newestOnTop": false,
+                    "progressBar": true,
+                    "positionClass": "toast-top-right",
+                    "preventDuplicates": false,
+                    "onclick": null,
+                    "showDuration": "300",
+                    "hideDuration": "1000",
+                    "timeOut": "5000",
+                    "extendedTimeOut": "1000",
+                    "showEasing": "swing",
+                    "hideEasing": "linear",
+                    "showMethod": "fadeIn",
+                    "hideMethod": "fadeOut"
+                });
+                this.activeChargement(false,"btnConfirmConnexion","attConfirmConnnexion");
+                this.router.navigate(['/']);
+            },
+            (error) => {
+                toastr.error(`Connexion impossible :<br> <small class="text-ultralight">${error.error}</small>`,"",{
+                    "closeButton": false,
+                    "debug": false,
+                    "newestOnTop": true,
+                    "progressBar": true,
+                    "positionClass": "toast-top-right",
+                    "preventDuplicates": false,
+                    "onclick": null,
+                    "showDuration": "300",
+                    "hideDuration": "1000",
+                    "timeOut": "5000",
+                    "extendedTimeOut": "1000",
+                    "showEasing": "swing",
+                    "hideEasing": "linear",
+                    "showMethod": "fadeIn",
+                    "hideMethod": "fadeOut"
+                });
+                this.activeChargement(false,"btnConfirmConnexion","attConfirmConnnexion");
+            });
+    }
+
 }
