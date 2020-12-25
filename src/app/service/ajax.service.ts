@@ -28,11 +28,17 @@ export class AjaxService{
 
     private urlModeInscriptionSiteAdmin = this.adresse+"parametres/InscriptionSiteAdmin"
 
+    private urlQuestions = this.adresse+"questions/getall"
+
 
 
     
     getModeInscriptionSiteAdmin(){
         return this.http.get(this.urlModeInscriptionSiteAdmin);
+    }
+
+    getAllQuestion(){
+        return this.http.get(this.urlQuestions);
     }
 
     postConfirmInscription(data){

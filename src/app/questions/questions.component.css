@@ -6,7 +6,10 @@
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    flex-wrap: wrap;
     padding-top: 50px;
-
+    overflow: auto;
+}
+.conteneur{
+    width: 70%;
+    height: auto;
 }

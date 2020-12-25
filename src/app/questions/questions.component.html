@@ -6,3 +6,20 @@
     <li data-marker="✓">modifier questions/réponses</li>
     <li data-marker="✓">supprimer questions/réponses</li>
 </ul>
+
+<button  (click)="GetAllQuertion()" class="button primary large shadowed rounded outline">test obtenir questions API</button>
+
+
+<div class="conteneur">
+    <ng-container *ngFor="let question of questions">
+        <p class="remark dark">{{ question.difficultes.nom }}: {{ question.texte }} ?</p>
+
+        <ul>
+            <li *ngFor="let reponse of question.reponses"> {{ reponse.id != question.bonneReponse.id ?  reponse.texte : "* "+reponse.texte +" *" }}</li>
+        </ul> 
+
+    </ng-container>
+</div>
+
+
+
