@@ -13,3 +13,8 @@
     width: 70%;
     height: auto;
 }
+.remark{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
