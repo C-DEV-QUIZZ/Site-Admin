@@ -24,16 +24,19 @@ export class CreationComponent implements OnInit {
         this.globals.ifAdminIsConnect();
     }
 
-
+    // clique sur le bouton ajout réponse
     addInputReponse(e){
         let inputAddReponse= e.previousSibling;
         this.reponsesArray.push(inputAddReponse.value);
         inputAddReponse.value="";
     }
 
+    // clique sur la croix rouge d'une réponse
     deleteInputReponse(i){
         this.reponsesArray.splice(i,1);
     }
+
+    // lorsque l'on change la valeur du nombre de point
     changeNumber(e){
         if(e>20)
             e=20
@@ -41,56 +44,60 @@ export class CreationComponent implements OnInit {
             e=1
         this.nbPoint = e;
     }
+
+    // Quand on click sur enregistrer
     onClickSubmit() {
 
         console.log(this.nbPoint);
         console.log(this.bonneReponse);
 
-        // let  httpParams = new HttpParams()
-        // .append("question", this.questionTexte)
-        // .append("difficulte",this.levelDifficulte)
-        // .append("reponses",this.reponsesArray.toLocaleString());
+        let  httpParams = new HttpParams()
+        .append("question", this.questionTexte)
+        .append("difficulte",this.levelDifficulte)
+        .append("points",this.nbPoint)
+        .append("bonneReponse",this.bonneReponse)
+        .append("reponses",this.reponsesArray.toLocaleString());
 
-        // this.ajaxService.postCreateQuestion(httpParams).subscribe( 
+        this.ajaxService.postCreateQuestion(httpParams).subscribe( 
         
-        //     (response) => {                           //Next callback
-        //         toastr.success("ok", "creation question Ok", {
-        //             "closeButton": false,
-        //             "debug": false,
-        //             "newestOnTop": false,
-        //             "progressBar": true,
-        //             "positionClass": "toast-top-right",
-        //             "preventDuplicates": false,
-        //             "onclick": null,
-        //             "showDuration": "300",
-        //             "hideDuration": "1000",
-        //             "timeOut": "5000",
-        //             "extendedTimeOut": "1000",
-        //             "showEasing": "swing",
-        //             "hideEasing": "linear",
-        //             "showMethod": "fadeIn",
-        //             "hideMethod": "fadeOut"
-        //         });
-        // },
-        //     (error) => {                              //Error callback
-        //         toastr.error(`Erreur lors de l'enregistrement de la question :<br> <small class="text-ultralight">${error.error}</small>`, "", {
-        //             "closeButton": false,
-        //             "debug": false,
-        //             "newestOnTop": true,
-        //             "progressBar": true,
-        //             "positionClass": "toast-top-right",
-        //             "preventDuplicates": false,
-        //             "onclick": null,
-        //             "showDuration": "300",
-        //             "hideDuration": "1000",
-        //             "timeOut": "5000",
-        //             "extendedTimeOut": "1000",
-        //             "showEasing": "swing",
-        //             "hideEasing": "linear",
-        //             "showMethod": "fadeIn",
-        //             "hideMethod": "fadeOut"
-        //         });
-        // })
+            (response) => {                           //Next callback
+                toastr.success("ok", "creation question Ok", {
+                    "closeButton": false,
+                    "debug": false,
+                    "newestOnTop": false,
+                    "progressBar": true,
+                    "positionClass": "toast-top-right",
+                    "preventDuplicates": false,
+                    "onclick": null,
+                    "showDuration": "300",
+                    "hideDuration": "1000",
+                    "timeOut": "5000",
+                    "extendedTimeOut": "1000",
+                    "showEasing": "swing",
+                    "hideEasing": "linear",
+                    "showMethod": "fadeIn",
+                    "hideMethod": "fadeOut"
+                });
+        },
+            (error) => {                              //Error callback
+                toastr.error(`Erreur lors de l'enregistrement de la question :<br> <small class="text-ultralight">${error.error}</small>`, "", {
+                    "closeButton": false,
+                    "debug": false,
+                    "newestOnTop": true,
+                    "progressBar": true,
+                    "positionClass": "toast-top-right",
+                    "preventDuplicates": false,
+                    "onclick": null,
+                    "showDuration": "300",
+                    "hideDuration": "1000",
+                    "timeOut": "5000",
+                    "extendedTimeOut": "1000",
+                    "showEasing": "swing",
+                    "hideEasing": "linear",
+                    "showMethod": "fadeIn",
+                    "hideMethod": "fadeOut"
+                });
+        })
     }
 
 }
