@@ -35,6 +35,7 @@ import { CreationComponent } from './creation/creation.component';
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
+    FormsModule,
   ],
   providers: [Globals],
   bootstrap: [AppComponent]

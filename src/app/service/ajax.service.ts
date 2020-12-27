@@ -1,6 +1,6 @@
 import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core'
-import { HttpClient} from '@angular/common/http';
+import { HttpClient, HttpParams} from '@angular/common/http';
 
 
 @Injectable({
@@ -28,9 +28,9 @@ export class AjaxService{
 
     private urlModeInscriptionSiteAdmin = this.adresse+"parametres/InscriptionSiteAdmin"
 
-    private urlQuestions = this.adresse+"questions/getall"
+    private urlGetAllQuestions = this.adresse +"questions/getall"
 
-
+    private urlCreateQuestion = this.adresse + "questions/create"
 
     
     getModeInscriptionSiteAdmin(){
@@ -38,7 +38,13 @@ export class AjaxService{
     }
 
     getAllQuestion(){
-        return this.http.get(this.urlQuestions);
+        return this.http.get(this.urlGetAllQuestions);
+    }
+
+    postCreateQuestion(data){
+        // envoyer la token.
+        console.log(data);
+        return this.http.post(this.urlCreateQuestion, data);
     }
 
     postConfirmInscription(data){

@@ -25,6 +25,7 @@ export class QuestionsComponent implements OnInit {
         var stringJson= JSON.stringify(response)
         var Json = JSON.parse(stringJson);
         this.questions= Json;
+        console.log(Json);
       },
       (error) => {                              
         let msgErreur;
