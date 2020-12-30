@@ -1,16 +1,27 @@
-:host {
-    display: flex;
-    height: 100%;
-    width: 100%;
-    margin: 0;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
-    padding-top: 50px;
-}
 .formulaire{
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
+    overflow: visible;
+}
+
+.myForm{
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+#lblPoint{
+    margin-right: 20px;
+}
+#messageInformation{
+    color: red;
+}
+.columnStyle{
+    width: 50px;
+}
+
+h6{
+    margin:0;
 }

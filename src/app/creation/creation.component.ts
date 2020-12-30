@@ -26,7 +26,14 @@ export class CreationComponent implements OnInit {
 
     // clique sur le bouton ajout réponse
     addInputReponse(e){
+
         let inputAddReponse= e.previousSibling;
+
+        if (this.globals.if_Undefind_EmptyOrSpaces(inputAddReponse.value)){
+            this.globals.PrintMessage("messageInformationReponse","Veuillez renseigner un texte pour la réponse");
+            return;
+        }
+
         this.reponsesArray.push(inputAddReponse.value);
         inputAddReponse.value="";
     }
@@ -48,8 +55,20 @@ export class CreationComponent implements OnInit {
     // Quand on click sur enregistrer
     onClickSubmit() {
 
-        console.log(this.nbPoint);
-        console.log(this.bonneReponse);
+        if(this.globals.if_Undefind_EmptyOrSpaces(this.questionTexte)){
+            this.globals.PrintMessage("messageInformation","Veuillez renseigner la question");
+            return;
+        }
+
+        if(this.reponsesArray.length==0){
+            this.globals.PrintMessage("messageInformation","Veuillez renseigner au minimum une réponse");
+            return;
+        }        
+
+        if(this.globals.if_Undefind_EmptyOrSpaces(this.bonneReponse)){
+            this.globals.PrintMessage("messageInformation","Veuillez renseigner la bonne réponse");
+            return;
+        }
 
         let  httpParams = new HttpParams()
         .append("question", this.questionTexte)
