@@ -22,9 +22,9 @@ export class ConnexionComponent implements OnInit {
     confirmPassword;
 
     // désactive le tabs Inscription;
-    modeInscription =false;
+    modeInscription = false;
 
-    constructor(private globals: Globals, public ajaxService: AjaxService,private router: Router) { 
+    constructor(private globals: Globals, public ajaxService: AjaxService, private router: Router) {
 
     }
 
@@ -32,12 +32,32 @@ export class ConnexionComponent implements OnInit {
 
         //retourne false si le mode inscription est désactivé dans la BDD
         this.ajaxService.getModeInscriptionSiteAdmin().subscribe(
-        (responseBody) => {
-            this.modeInscription = Boolean (responseBody);
-        },
-        (error)=>{
-            console.log("mode inscription: "+error);
-        });
+            (responseBody) => {
+                this.modeInscription = Boolean(responseBody);
+            },
+            (error) => {
+                let msgErreur;
+                if (error.status == 0)
+                    msgErreur = "Connexion à distance impossible"
+                toastr.error(`Connexion impossible :<br> <small class="text-ultralight">${msgErreur}</small>`, "", {
+                    "closeButton": false,
+                    "debug": false,
+                    "newestOnTop": true,
+                    "progressBar": true,
+                    "positionClass": "toast-top-right",
+                    "preventDuplicates": false,
+                    "onclick": null,
+                    "showDuration": "300",
+                    "hideDuration": "1000",
+                    "timeOut": "5000",
+                    "extendedTimeOut": "1000",
+                    "showEasing": "swing",
+                    "hideEasing": "linear",
+                    "showMethod": "fadeIn",
+                    "hideMethod": "fadeOut"
+                });
+
+            });
 
     }
 
@@ -123,7 +143,7 @@ export class ConnexionComponent implements OnInit {
         this.ajaxService.postInscription(data).subscribe(
             (response) => {                           //Next callback
                 console.log(response);
-                toastr.success("Un email de confirmation à été envoyé","Inscription Ok",{
+                toastr.success("Un email de confirmation à été envoyé", "Inscription Ok", {
                     "closeButton": false,
                     "debug": false,
                     "newestOnTop": false,
@@ -143,7 +163,7 @@ export class ConnexionComponent implements OnInit {
                 this.activeChargement(false, "btnConfirmInscription", "attConfirmInscription");
             },
             (error) => {                              //Error callback
-                toastr.error(`Erreur lors de l'enregistrement :<br> <small class="text-ultralight">${error.error}</small>`,"",{
+                toastr.error(`Erreur lors de l'enregistrement :<br> <small class="text-ultralight">${error.error}</small>`, "", {
                     "closeButton": false,
                     "debug": false,
                     "newestOnTop": true,
@@ -199,9 +219,9 @@ export class ConnexionComponent implements OnInit {
                 let timeConnexion = 0.041; // 1h
                 Cookie.set(Globals.COOKIE_NAME, JsonResult.token, timeConnexion);
 
-                this.globals.libelle_compte = Globals.COMPTE_STRING;    
+                this.globals.libelle_compte = Globals.COMPTE_STRING;
 
-                toastr.success(`Bienvenue ${JsonResult.nom} ${JsonResult.prenom} `,"Connexion Ok",{
+                toastr.success(`Bienvenue ${JsonResult.nom} ${JsonResult.prenom} `, "Connexion Ok", {
                     "closeButton": false,
                     "debug": false,
                     "newestOnTop": false,
@@ -218,11 +238,14 @@ export class ConnexionComponent implements OnInit {
                     "showMethod": "fadeIn",
                     "hideMethod": "fadeOut"
                 });
-                this.activeChargement(false,"btnConfirmConnexion","attConfirmConnnexion");
+                this.activeChargement(false, "btnConfirmConnexion", "attConfirmConnnexion");
                 this.router.navigate(['/']);
             },
             (error) => {
-                toastr.error(`Connexion impossible :<br> <small class="text-ultralight">${error.error}</small>`,"",{
+                let msgErreur = error.error;
+                if (error.status == 0)
+                    msgErreur = "Connexion à distance impossible"
+                toastr.error(`Connexion impossible :<br> <small class="text-ultralight">${msgErreur}</small>`, "", {
                     "closeButton": false,
                     "debug": false,
                     "newestOnTop": true,
@@ -239,7 +262,7 @@ export class ConnexionComponent implements OnInit {
                     "showMethod": "fadeIn",
                     "hideMethod": "fadeOut"
                 });
-                this.activeChargement(false,"btnConfirmConnexion","attConfirmConnnexion");
+                this.activeChargement(false, "btnConfirmConnexion", "attConfirmConnnexion");
             });
     }
 

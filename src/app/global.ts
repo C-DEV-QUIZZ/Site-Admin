@@ -38,7 +38,6 @@ export class Globals {
         }
         return true;
     }
-    
 
     public ifAdminIsConnect(){
         let isConnect = Cookie.get(Globals.COOKIE_NAME) ? true:false;
@@ -83,4 +82,24 @@ export class Globals {
         }
     }
 
+    // prend l'id d'une balise paragraphe : exemple =>  "inputMessageModalExemple"
+    // Ne pas oublier les guillements !
+    public PrintMessage(element,message,error=true,time=3000)
+    {
+        document.getElementById(element).style.color="Green";
+        document.getElementById(element).innerHTML=message;
+        if(error)
+            document.getElementById(element).style.color="Red";
+        setTimeout(function(){
+            document.getElementById(element).innerHTML="";
+        },time);
+
+    }
+
+
+    public if_Undefind_EmptyOrSpaces(str){
+        if(str==undefined)
+            return true;
+        return str === null || str.match(/^ *$/) !== null;
+    }
 }
