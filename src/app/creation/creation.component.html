@@ -1,1 +1,59 @@
-<h1>Page qui servira à la création question!</h1>
+<form  class="container col-md-8 myForm" (ngSubmit)="onClickSubmit()" >
+    
+    <div class="remark w-50">
+        <h6>Veuillez choisir la difficulté de la question: </h6>
+
+        <div class="row flex-justify-between">
+            <input [(ngModel)]="levelDifficulte" value="1" name="difficulte" data-cls-check="bd-cyan" class="fg-blue" type="radio" data-role="radio" data-caption="Facile" data-caption-position="left">
+            <input [(ngModel)]="levelDifficulte" value="2" name="difficulte" data-cls-check="bd-green" class="fg-green" type="radio" data-role="radio" data-caption="Moyenne" data-caption-position="left">
+            <input [(ngModel)]="levelDifficulte" value="3" name="difficulte" data-cls-check="bd-red" class="fg-red" type="radio" data-role="radio" data-caption="Expert" data-caption-position="left">
+        </div>
+
+    </div> 
+
+    <div class="row d-flex flex-align-center m-10 w-100 flex-justify-center remark">
+        <h6 id="lblPoint">Nombre de points : </h6>
+        <input class="input-small cell-2" [(ngModel)]="nbPoint" name="nbPoint" (change)="changeNumber($event.target.value)" type="text" data-role="spinner" data-min-value="1" data-max-value="20">
+    </div>
+
+    <div class="d-flex flex-column flex-align-center w-100 remark">
+        <h6>Tapez ici la question     
+            <small>
+                <cite title="Source Title" class="text-ultralight">(sans point interrogation)</cite>
+            </small>
+            :
+        </h6>
+
+        <input [(ngModel)]="questionTexte" type="text" data-role="input" name="question" placeholder="Question">
+
+        <div id="containerReponse" class="container-fluid col-md-8">
+            <table class="table compact row-border cell-border " *ngIf="reponsesArray.length >0">
+                <thead>
+                <tr>
+                    <th ></th>
+                    <th class="text-center columnStyle text-ultralight">Supprimer la réponse</th>
+                    <th class="text-center columnStyle text-ultralight">Sélectionner la bonne réponse</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let reponse of reponsesArray ; let index = index;">
+                    <td ><p class="text-bold">{{ reponse }}</p></td>
+                    <td class="text-center" ><button type="button" (click)="deleteInputReponse(index)" class="button alert square outline mini rounded mif-cross"></button></td>
+                    <td class="text-center"><input [(ngModel)]="bonneReponse" value="{{index}}" name="bonneReponse" data-cls-check="bd-green" class="fg-green" type="radio" data-role="radio" data-caption-position="left"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="d-flex flex-align-center col-10 flex-justify-center">
+            <input type="text" class="cell-8" id="reponseSaisie" placeholder="Saisir une réponse">
+            <button type="button" id="btnAddResponse" (click)="addInputReponse($event.target)" class="m-5 button primary outline mif-add">Ajouter la réponse</button>
+        </div>
+        <p id="messageInformationReponse"></p>
+    </div> 
+    <div class="w-100 d-flex flex-align-center flex-justify-between">
+        <button type="submit" class="button m-5 success outline">ENREGISTREMENT</button>
+        <p id="messageInformation"></p>
+    </div>
+</form>
+

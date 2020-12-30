@@ -1,8 +1,48 @@
-<h1>Sur cette page, nous allons trouvé toutes les questions! </h1>
+<h1 class="text-center">Sur cette page, nous allons trouvé toutes les questions! </h1>
 
-<h2>Nous pourrons les :</h2>
+<h2>Nous pourrons: </h2>
 <ul class="custom-list-marker">
-    <li data-marker="✓">relire questions/réponses</li>
-    <li data-marker="✓">modifier questions/réponses</li>
-    <li data-marker="✓">supprimer questions/réponses</li>
+    <li data-marker="✓">relire les questions/réponses</li>
+    <li data-marker="✓">modifier les questions/réponses</li>
+    <li data-marker="✓">supprimer les questions/réponses</li>
 </ul>
+<br>
+<button  (click)="GetAllQuertion()" class="button primary large shadowed rounded outline">(v2.0 sera obtenu directement) Obtenir toutes les questions API</button>
+
+
+<div class="conteneur">
+    <ng-container *ngFor="let question of questions">
+        <div class="remark dark">
+            <textarea data-role="textarea" disabled class="text-left fg-black" data-prepend="<span class='mif-leanpub'></span>">{{ question.texte }} ? </textarea>
+
+            <ng-container [ngSwitch]="question.difficultes.nom">
+                <div *ngSwitchCase="'Facile'" class="float-right m-2 p-1 bg-blue fg-white border-radius-4"> {{ question.difficultes.nom }} </div>
+                <div *ngSwitchCase="'Moyenne'" class="float-right m-2 p-1 bg-green fg-white border-radius-4"> {{ question.difficultes.nom }} </div>
+                <div *ngSwitchDefault class="float-right p-1 bg-red m-2 fg-white border-radius-4"> {{ question.difficultes.nom }} </div>
+            </ng-container>
+            <button class="button primary square outline mif-2x mif-pencil"></button> 
+
+        </div>
+
+        <ul>
+            <li *ngFor="let reponse of question.reponses"> 
+
+                <div *ngIf="reponse.id != question.bonneReponse.id ;then modeInscriptionActif else modeInscriptionInactif">Le contenu saisi ici sera ignoré.</div>
+            
+                <ng-template #modeInscriptionActif>
+                    {{ reponse.texte }}
+                </ng-template>
+
+                <ng-template #modeInscriptionInactif>
+                    <span class="spanBonneReponse">
+                        {{ reponse.texte }}
+                    </span>   
+                </ng-template>
+            </li>
+        </ul> 
+        <hr>
+    </ng-container>
+</div>
+
+
+
