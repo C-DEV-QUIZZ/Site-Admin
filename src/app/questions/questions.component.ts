@@ -25,7 +25,6 @@ export class QuestionsComponent implements OnInit {
         var stringJson= JSON.stringify(response)
         var Json = JSON.parse(stringJson);
         this.questions= Json;
-        console.log(Json);
       },
       (error) => {                              
         let msgErreur;
@@ -52,4 +51,68 @@ export class QuestionsComponent implements OnInit {
     );
   }
 
+
+
+  modifQuestion(button):any{
+
+    var blocQuestion = button.parentNode;
+    var blocReponse = blocQuestion.nextSibling;
+    var buttonActualisation = blocReponse.nextSibling;
+
+    var textAreaQuestion = blocQuestion.firstChild.firstChild;
+
+
+    // console.log(blocQuestion);
+    // console.log(textAreaQuestion.disabled= !textAreaQuestion.disabled );
+
+    // active desactive le textarea question : 
+    textAreaQuestion.disabled= !textAreaQuestion.disabled 
+
+
+    //console.log(blocReponse);
+
+    // active desactive les réponses : 
+    Array.from(blocReponse.children).forEach(rep => {
+        var inputReponse = rep.firstChild;
+        inputReponse.disabled = !inputReponse.disabled;
+    });
+
+    // active desactive le bouton mise à jour : 
+    buttonActualisation.hidden = !buttonActualisation.hidden
+
+  }
+
+
+  UpdateQuestion(idQuestion,btnUpdate){
+    var ArrayReponse =[];
+    var IdBonneReponse;
+    var blocReponse = btnUpdate.previousSibling;    
+    var Question = blocReponse.previousSibling.firstChild.firstChild.value;
+
+    Array.from(blocReponse.children).forEach(rep => {
+      var inputReponse = rep.firstChild;
+
+
+      var reponse = [inputReponse.dataset.id,inputReponse.value];
+      ArrayReponse.push(reponse);
+
+      if (inputReponse.dataset.goodanswer!=undefined)
+        IdBonneReponse= inputReponse.dataset.id; 
+    });
+
+
+    console.log(idQuestion);
+    console.log(Question);
+    console.log(ArrayReponse);
+    console.log(IdBonneReponse);
+
+
+
+    // recuperer la question.
+    // recuperer toutes les reponses
+    // formater au format 
+    // faire un put
+
+
+  }
 }

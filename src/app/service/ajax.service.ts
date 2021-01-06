@@ -9,8 +9,8 @@ import { HttpClient, HttpParams} from '@angular/common/http';
 export class AjaxService{
 
 
-    // private adresse= "http://localhost:6969/" //local
-    private adresse= "https://quizz.servehttp.com/" // distante
+    private adresse= "http://localhost:6969/" //local
+    // private adresse= "https://quizz.servehttp.com/" // distante
 
     private http:HttpClient;
     

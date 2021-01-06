@@ -10,17 +10,17 @@
 <button  (click)="GetAllQuertion()" class="button primary large shadowed rounded outline">(v2.0 sera obtenu directement) Obtenir toutes les questions API</button>
 
 
-<div class="conteneur">
-    <ng-container *ngFor="let question of questions">
-        <div class="remark dark">
-            <textarea data-role="textarea" disabled class="text-left fg-black" data-prepend="<span class='mif-leanpub'></span>">{{ question.texte }} ? </textarea>
+<div class="conteneur col-md-10">
+    <div *ngFor="let question of questions" class="m-5">
+        <div class="d-flex flex-align-center">
 
+            <textarea data-role="textarea" disabled class="text-left fg-black" data-prepend="<span class='mif-leanpub'></span>">{{ question.texte }} ? </textarea>
             <ng-container [ngSwitch]="question.difficultes.nom">
                 <div *ngSwitchCase="'Facile'" class="float-right m-2 p-1 bg-blue fg-white border-radius-4"> {{ question.difficultes.nom }} </div>
                 <div *ngSwitchCase="'Moyenne'" class="float-right m-2 p-1 bg-green fg-white border-radius-4"> {{ question.difficultes.nom }} </div>
                 <div *ngSwitchDefault class="float-right p-1 bg-red m-2 fg-white border-radius-4"> {{ question.difficultes.nom }} </div>
             </ng-container>
-            <button class="button primary square outline mif-2x mif-pencil"></button> 
+            <button class="button primary square outline mif-2x mif-pencil" (click)="modifQuestion($event.target)"></button> 
 
         </div>
 
@@ -30,18 +30,17 @@
                 <div *ngIf="reponse.id != question.bonneReponse.id ;then modeInscriptionActif else modeInscriptionInactif">Le contenu saisi ici sera ignoré.</div>
             
                 <ng-template #modeInscriptionActif>
-                    {{ reponse.texte }}
+                    <input disabled [attr.data-id]="reponse.id" value="{{ reponse.texte }}"/>
                 </ng-template>
 
                 <ng-template #modeInscriptionInactif>
-                    <span class="spanBonneReponse">
-                        {{ reponse.texte }}
-                    </span>   
+                    <input disabled [attr.data-id]="reponse.id" [attr.data-goodAnswer]="1" class="spanBonneReponse" value="{{ reponse.texte }}"/>
                 </ng-template>
             </li>
         </ul> 
+        <button hidden class="button warning outline flex-justify-end m-5" (click)="UpdateQuestion(question.id,$event.target)">Mettre à jour</button>
         <hr>
-    </ng-container>
+    </div>
 </div>
 
 
