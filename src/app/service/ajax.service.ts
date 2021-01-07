@@ -37,7 +37,7 @@ export class AjaxService{
     updateQuestion(data){
         let headers = new HttpHeaders();
             headers = headers.set('Content-Type', 'application/json; charset=utf-8');
-        return this.http.post(this.urlUpdateQuestion, data,{headers: headers})
+        return this.http.put(this.urlUpdateQuestion, data,{headers: headers})
     }
     
     getModeInscriptionSiteAdmin(){

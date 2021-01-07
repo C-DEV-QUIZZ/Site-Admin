@@ -90,7 +90,7 @@ export class QuestionsComponent implements OnInit {
       var inputReponse =  rep.firstChild;
 
 
-      var reponse = `{"${inputReponse.dataset.id}" : "${inputReponse.value}"}`;
+      var reponse = `{ "id" : "${inputReponse.dataset.id}", "texte" : "${inputReponse.value}"}`;
       ArrayReponse.push(reponse);
 
       if (inputReponse.dataset.goodanswer!=undefined)
@@ -108,7 +108,8 @@ export class QuestionsComponent implements OnInit {
       "id": ${idQuestion},
       "texte": "${Question}",
       "bonneReponse": {
-          "id": ${IdBonneReponse}
+          "id": ${IdBonneReponse},
+          "texte": "good"
       },
       "reponses":[${ArrayReponse}],
       "difficultes": {
@@ -117,12 +118,25 @@ export class QuestionsComponent implements OnInit {
       }
     }`;
 
-    console.log(data);
     this.ajaxSerice.updateQuestion(data).subscribe(
       (response) => {        
-        var stringJson= JSON.stringify(response)
-        var Json = JSON.parse(stringJson);
-        this.questions= Json;
+        toastr.success("Mise à jour de la question", "Mise à jour Ok", {
+          "closeButton": false,
+          "debug": false,
+          "newestOnTop": false,
+          "progressBar": true,
+          "positionClass": "toast-top-right",
+          "preventDuplicates": false,
+          "onclick": null,
+          "showDuration": "300",
+          "hideDuration": "1000",
+          "timeOut": "5000",
+          "extendedTimeOut": "1000",
+          "showEasing": "swing",
+          "hideEasing": "linear",
+          "showMethod": "fadeIn",
+          "hideMethod": "fadeOut"
+        });
       },
       (error) => {                              
         let msgErreur;
