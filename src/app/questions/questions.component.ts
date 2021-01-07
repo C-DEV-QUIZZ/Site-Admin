@@ -70,7 +70,7 @@ export class QuestionsComponent implements OnInit {
     //console.log(blocReponse);
 
     // active desactive les réponses : 
-    Array.from(blocReponse.children).forEach(rep => {
+    Array.from(blocReponse.children).forEach(( rep:any) => {
         var inputReponse = rep.firstChild;
         inputReponse.disabled = !inputReponse.disabled;
     });
@@ -86,8 +86,8 @@ export class QuestionsComponent implements OnInit {
     var blocReponse = btnUpdate.previousSibling;    
     var Question = blocReponse.previousSibling.firstChild.firstChild.value;
 
-    Array.from(blocReponse.children).forEach(rep => {
-      var inputReponse = rep.firstChild;
+    Array.from(blocReponse.children).forEach(( rep:any) => {
+      var inputReponse =  rep.firstChild;
 
 
       var reponse = `{"${inputReponse.dataset.id}" : "${inputReponse.value}"}`;
