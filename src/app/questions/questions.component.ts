@@ -18,13 +18,13 @@ export class QuestionsComponent implements OnInit {
     this.globals.ifAdminIsConnect();
   }
 
-
   GetAllQuertion():any {
     this.ajaxSerice.getAllQuestion().subscribe(
       (response) => {        
         var stringJson= JSON.stringify(response)
         var Json = JSON.parse(stringJson);
         this.questions= Json;
+        console.log(response);
       },
       (error) => {                              
         let msgErreur;
@@ -50,8 +50,6 @@ export class QuestionsComponent implements OnInit {
       }
     );
   }
-
-
 
   modifQuestion(button):any{
 
@@ -82,7 +80,6 @@ export class QuestionsComponent implements OnInit {
 
   }
 
-
   UpdateQuestion(idQuestion,btnUpdate){
     var ArrayReponse =[];
     var IdBonneReponse;
@@ -93,7 +90,7 @@ export class QuestionsComponent implements OnInit {
       var inputReponse = rep.firstChild;
 
 
-      var reponse = [inputReponse.dataset.id,inputReponse.value];
+      var reponse = `{"${inputReponse.dataset.id}" : "${inputReponse.value}"}`;
       ArrayReponse.push(reponse);
 
       if (inputReponse.dataset.goodanswer!=undefined)
@@ -106,8 +103,50 @@ export class QuestionsComponent implements OnInit {
     console.log(ArrayReponse);
     console.log(IdBonneReponse);
 
+    var data = `
+    {
+      "id": ${idQuestion},
+      "texte": "${Question}",
+      "bonneReponse": {
+          "id": ${IdBonneReponse}
+      },
+      "reponses":[${ArrayReponse}],
+      "difficultes": {
+          "id": 1,
+          "nom": "Facile"
+      }
+    }`;
 
-
+    console.log(data);
+    this.ajaxSerice.updateQuestion(data).subscribe(
+      (response) => {        
+        var stringJson= JSON.stringify(response)
+        var Json = JSON.parse(stringJson);
+        this.questions= Json;
+      },
+      (error) => {                              
+        let msgErreur;
+        if (error.status == 0)
+            msgErreur = "Connexion à distance impossible"
+        toastr.error(`Connexion impossible :<br> <small class="text-ultralight">${msgErreur}</small>`, "", {
+            "closeButton": false,
+            "debug": false,
+            "newestOnTop": true,
+            "progressBar": true,
+            "positionClass": "toast-top-right",
+            "preventDuplicates": false,
+            "onclick": null,
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "5000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        });
+      }
+    );
     // recuperer la question.
     // recuperer toutes les reponses
     // formater au format 

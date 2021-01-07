@@ -1,6 +1,6 @@
 import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core'
-import { HttpClient, HttpParams} from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 
 
 @Injectable({
@@ -32,6 +32,13 @@ export class AjaxService{
 
     private urlCreateQuestion = this.adresse + "questions/create"
 
+    private urlUpdateQuestion = this.adresse + "questions/update"
+
+    updateQuestion(data){
+        let headers = new HttpHeaders();
+            headers = headers.set('Content-Type', 'application/json; charset=utf-8');
+        return this.http.post(this.urlUpdateQuestion, data,{headers: headers})
+    }
     
     getModeInscriptionSiteAdmin(){
         return this.http.get(this.urlModeInscriptionSiteAdmin);
@@ -43,7 +50,6 @@ export class AjaxService{
 
     postCreateQuestion(data){
         // envoyer la token.
-        console.log(data);
         return this.http.post(this.urlCreateQuestion, data);
     }
 
