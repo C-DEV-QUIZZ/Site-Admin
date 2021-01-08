@@ -107,6 +107,7 @@ export class QuestionsComponent implements OnInit {
     {
       "id": ${idQuestion},
       "texte": "${Question}",
+      "points": 9999,
       "bonneReponse": {
           "id": ${IdBonneReponse},
           "texte": "good"
