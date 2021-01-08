@@ -18,3 +18,12 @@
 .spanBonneReponse{
     color: lightgreen;
 }
+
+.btnUpdate{
+    margin-left: 10px;
+}
+.selectDifficulte{
+    border: 0px;
+    width: 150px;
+    margin: 0 10px 0 10px;
+}

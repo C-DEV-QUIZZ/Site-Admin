@@ -15,12 +15,19 @@
         <div class="d-flex flex-align-center">
 
             <textarea data-role="textarea" disabled class="text-left fg-black" data-prepend="<span class='mif-leanpub'></span>">{{ question.texte }} ? </textarea>
-            <ng-container [ngSwitch]="question.difficultes.nom">
+            <!-- <ng-container [ngSwitch]="question.difficultes.nom">
                 <div *ngSwitchCase="'Facile'" class="float-right m-2 p-1 bg-blue fg-white border-radius-4"> {{ question.difficultes.nom }} </div>
                 <div *ngSwitchCase="'Moyenne'" class="float-right m-2 p-1 bg-green fg-white border-radius-4"> {{ question.difficultes.nom }} </div>
                 <div *ngSwitchDefault class="float-right p-1 bg-red m-2 fg-white border-radius-4"> {{ question.difficultes.nom }} </div>
-            </ng-container>
-            <button class="button primary square outline mif-2x mif-pencil" (click)="modifQuestion($event.target)"></button> 
+            </ng-container> -->
+            <select disabled class="selectDifficulte" [ngClass]="{'bg-blue': question.difficultes.nom === 'Facile', 'bg-green':question.difficultes.nom === 'Moyenne','bg-red':question.difficultes.nom === 'Expert' }">
+                <option value="1" class="bg-white fg-blue" [selected]="question.difficultes.nom == 'Facile'">Facile</option>
+                <option value="2" class="bg-white fg-green" [selected]="question.difficultes.nom == 'Moyenne'">Moyenne</option>
+                <option value="3" class="bg-white fg-red" [selected]="question.difficultes.nom == 'Expert'">Expert</option>
+            </select>
+
+            <input class="input-small cell-2 text-center" disabled maxlength="2" value="{{ question.points }}" (change)="changeNumber($event.target)" type="number" data-role="spinner" data-min-value="1" data-max-value="20">
+            <button class="button primary square outline mif-2x mif-pencil btnUpdate" (click)="modifQuestion($event.target)"></button> 
 
         </div>
 
