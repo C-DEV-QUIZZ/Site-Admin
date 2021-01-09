@@ -7,8 +7,8 @@
     <li data-marker="✓">supprimer les questions/réponses</li>
 </ul>
 <br>
-<button  (click)="GetAllQuestions()" class="button primary large shadowed rounded outline">(v2.0 sera obtenu directement) Obtenir toutes les questions API</button>
 
+<button  (click)="GetAllQuestions()" class="button primary large shadowed rounded outline">(v2.0 sera obtenu directement) Obtenir toutes les questions API</button>
 
 <div class="conteneur col-md-10">
     <div *ngFor="let question of questions" class="m-5" id="div{{question.id}}">
@@ -23,7 +23,7 @@
 
             
             <input class="input-small cell-2 text-center" disabled maxlength="2" value="{{ question.points }}" (change)="changeNumber($event.target)" type="number" data-role="spinner" data-min-value="1" data-max-value="20">
-            <button class="button primary square outline mif-2x mif-pencil btnUpdate" (click)="modifQuestion($event.target)"></button> 
+            <button class="button primary square outline mif-2x mif-pencil btnUpdate" (click)="EnableDisableBLoc($event.target)"></button> 
         </div>
 
         <ul>
@@ -50,12 +50,12 @@
 
 
 <div class="dialog dark" data-role="dialog" id="demoDialog1">
-    <div class="dialog-title">Êtes vous sûr?</div>
-    <div class="dialog-content">
-        Vous allez supprimer la question, vous ne pourrez plus annuler cette manipulation !!
+    <div class="dialog-title">Suppression de la question ?</div>
+    <div class="dialog-content fg-red">
+        Êtes vous sur de vouloir supprimer la question? Vous ne pourrez plus annuler cette manipulation.
     </div>
-    <div class="dialog-actions">
+    <div class="dialog-actions blocValidationModale">
         <button class="button js-dialog-close">Annuler</button>
-        <button class="button success js-dialog-close" (click) ="deleteQuestion()">Valider</button>
+        <button class="button alert js-dialog-close" (click) ="deleteQuestion()">Valider</button>
     </div>
 </div>

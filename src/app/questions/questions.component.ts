@@ -57,11 +57,9 @@ export class QuestionsComponent implements OnInit {
             iptPoints.value = 20;
         if (iptPoints.value < 1)
             iptPoints.value = 1;
-        console.log(e.value);
     }
 
-    modifQuestion(button): any {
-
+    EnableDisableBLoc(button): any {
         var blocQuestion = button.parentNode;
         var blocReponse = blocQuestion.nextSibling;
         var buttonActualisation = blocReponse.nextSibling;
@@ -69,29 +67,32 @@ export class QuestionsComponent implements OnInit {
         var inputPoint = button.previousSibling.firstChild;
         var textAreaQuestion = blocQuestion.firstChild.firstChild;
         var selectDifficulte = button.previousSibling.previousSibling;
+        this.ToggleElementQuestion(textAreaQuestion,inputPoint,selectDifficulte,blocReponse,buttonActualisation,buttonSupprimer);
+    }
 
-        console.log(selectDifficulte.value);
-
-        // console.log(blocQuestion);
-        // console.log(textAreaQuestion.disabled= !textAreaQuestion.disabled );
-        // console.log(inputPoint);
-
-        // active desactive le textarea question : 
-        // active desactive le input points : 
-        // active desactive le select difficulte : 
-        // active desactive les réponses : 
-        textAreaQuestion.disabled = !textAreaQuestion.disabled;
-        inputPoint.disabled = !inputPoint.disabled;
-        selectDifficulte.disabled = !selectDifficulte.disabled;
-        Array.from(blocReponse.children).forEach((rep: any) => {
-            var inputReponse = rep.firstChild;
-            inputReponse.disabled = !inputReponse.disabled;
-        });
-
-        // active desactive le bouton mise à jour : 
-        buttonActualisation.hidden = !buttonActualisation.hidden
-        buttonSupprimer.hidden = !buttonSupprimer.hidden
-
+    ToggleElementQuestion(textAreaQuestion,inputPoint,selectDifficulte,blocReponse,buttonActualisation,buttonSupprimer,toggle=true){
+        if (toggle){
+            textAreaQuestion.disabled = !textAreaQuestion.disabled;
+            inputPoint.disabled = !inputPoint.disabled;
+            selectDifficulte.disabled = !selectDifficulte.disabled;
+            Array.from(blocReponse.children).forEach((rep: any) => {
+                var inputReponse = rep.firstChild;
+                inputReponse.disabled = !inputReponse.disabled;
+            });
+            buttonActualisation.hidden = !buttonActualisation.hidden;
+            buttonSupprimer.hidden = !buttonSupprimer.hidden;
+        }
+        else{
+            textAreaQuestion.disabled =true;
+            inputPoint.disabled =true;
+            selectDifficulte.disabled =true;
+            Array.from(blocReponse.children).forEach((rep: any) => {
+                var inputReponse = rep.firstChild;
+                inputReponse.disabled = true;
+            });
+            buttonActualisation.hidden =true;
+            buttonSupprimer.hidden =true;
+        }
     }
 
     sendUpdateQuestion(idQuestion, btnUpdate) {
@@ -103,33 +104,34 @@ export class QuestionsComponent implements OnInit {
         var IdBonneReponse;
         var txtBonneReponse;
         var blocReponse = btnUpdate.previousSibling;
-        var Question = blocReponse.previousSibling.firstChild.firstChild.value;
-        var Points =blocReponse.previousSibling.lastChild.previousSibling.firstChild.value;
-        var difficulte = blocReponse.previousSibling.firstChild.nextSibling.value;
+        var Question = blocReponse.previousSibling.firstChild.firstChild;
+        var Points =blocReponse.previousSibling.lastChild.previousSibling.firstChild;
+        var difficulte = blocReponse.previousSibling.firstChild.nextSibling;
+        var buttonActualisation = blocReponse.nextSibling;
+        var buttonSupprimer= buttonActualisation.nextSibling;
 
-            Array.from(blocReponse.children).forEach((rep: any) => {
-                var inputReponse = rep.firstChild;
-                var reponse = `{ "id" : "${inputReponse.dataset.id}", "texte" : "${inputReponse.value}"}`;
-                ArrayReponse.push(reponse);
-
-                if (inputReponse.dataset.goodanswer != undefined){
-                    IdBonneReponse = inputReponse.dataset.id;
-                    txtBonneReponse= inputReponse.value;
-                }
-            });
+        Array.from(blocReponse.children).forEach((rep: any) => {
+            var inputReponse = rep.firstChild;
+            var reponse = `{ "id" : "${inputReponse.dataset.id}", "texte" : "${inputReponse.value}"}`;
+            ArrayReponse.push(reponse);
+            if (inputReponse.dataset.goodanswer != undefined){
+                IdBonneReponse = inputReponse.dataset.id;
+                txtBonneReponse= inputReponse.value;
+            }
+        });
 
         var data = `
         {
             "id": ${idQuestion},
-            "texte": "${Question}",
-            "points": "${Points}",
+            "texte": "${Question.value}",
+            "points": "${Points.value}",
             "bonneReponse": {
                 "id": ${IdBonneReponse},
                 "texte": "${txtBonneReponse}"
             },
             "reponses":[${ArrayReponse}],
             "difficultes": {
-                "id": ${difficulte},
+                "id": ${difficulte.value},
                 "nom": ""
             }
         }`;
@@ -152,6 +154,7 @@ export class QuestionsComponent implements OnInit {
                     "showMethod": "fadeIn",
                     "hideMethod": "fadeOut"
                 });
+                this.ToggleElementQuestion(Question,Points,difficulte,blocReponse,buttonActualisation,buttonSupprimer,false);
             },
             (error) => {
                 let msgErreur = error.error;
@@ -174,15 +177,10 @@ export class QuestionsComponent implements OnInit {
                     "showMethod": "fadeIn",
                     "hideMethod": "fadeOut"
                 });
+                btnUpdate.hidden=false;
+                btnAnnuler.hidden=false;
             }
         );
-        // recuperer la question.
-        // recuperer toutes les reponses
-        // formater au format 
-        // faire un put
-
-        btnUpdate.hidden=false;
-        btnAnnuler.hidden=false;
     }
 
     changeDifficulte(select){
@@ -209,14 +207,31 @@ export class QuestionsComponent implements OnInit {
     deleteQuestion(){
         if(this.IdQuestionASupprimer == null)
             return;
-        console.log("suppression de la question avec l'id " + this.IdQuestionASupprimer);    
-
         this.ajaxService.deleteQuestion(this.IdQuestionASupprimer).subscribe(
             (Response)=>{
                 document.getElementById("div" +this.IdQuestionASupprimer).remove();
             },
             (error)=>{
-                console.log("erreur");
+                let msgErreur = error.error;
+                if (error.status == 0)
+                    msgErreur = "Connexion à distance impossible"
+                toastr.error(`Connexion impossible :<br> <small class="text-ultralight">${msgErreur}</small>`, "", {
+                    "closeButton": false,
+                    "debug": false,
+                    "newestOnTop": true,
+                    "progressBar": true,
+                    "positionClass": "toast-top-right",
+                    "preventDuplicates": false,
+                    "onclick": null,
+                    "showDuration": "300",
+                    "hideDuration": "1000",
+                    "timeOut": "5000",
+                    "extendedTimeOut": "1000",
+                    "showEasing": "swing",
+                    "hideEasing": "linear",
+                    "showMethod": "fadeIn",
+                    "hideMethod": "fadeOut"
+                });
             }
         )
     }
