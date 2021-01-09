@@ -27,7 +27,6 @@ export class ConfirmationInscriptionComponent implements OnInit {
                     this.message="Inscription confirmé! Vous pouvez à présent vous connecter";             
                 },
                 (error) => {                              
-                    console.error(error.error)
                     this.message=error.error;     
                 }
             );

@@ -36,7 +36,7 @@ export class ConnexionComponent implements OnInit {
                 this.modeInscription = Boolean(responseBody);
             },
             (error) => {
-                let msgErreur;
+                let msgErreur = error.error;
                 if (error.status == 0)
                     msgErreur = "Connexion à distance impossible"
                 toastr.error(`Connexion impossible :<br> <small class="text-ultralight">${msgErreur}</small>`, "", {
@@ -142,7 +142,6 @@ export class ConnexionComponent implements OnInit {
         }
         this.ajaxService.postInscription(data).subscribe(
             (response) => {                           //Next callback
-                console.log(response);
                 toastr.success("Un email de confirmation à été envoyé", "Inscription Ok", {
                     "closeButton": false,
                     "debug": false,
