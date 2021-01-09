@@ -209,13 +209,30 @@ export class QuestionsComponent implements OnInit {
             return;
         this.ajaxService.deleteQuestion(this.IdQuestionASupprimer).subscribe(
             (Response)=>{
+                toastr.success("La question à été supprimée", "Suppression Ok", {
+                    "closeButton": false,
+                    "debug": false,
+                    "newestOnTop": false,
+                    "progressBar": true,
+                    "positionClass": "toast-top-right",
+                    "preventDuplicates": false,
+                    "onclick": null,
+                    "showDuration": "300",
+                    "hideDuration": "1000",
+                    "timeOut": "5000",
+                    "extendedTimeOut": "1000",
+                    "showEasing": "swing",
+                    "hideEasing": "linear",
+                    "showMethod": "fadeIn",
+                    "hideMethod": "fadeOut"
+                });
                 document.getElementById("div" +this.IdQuestionASupprimer).remove();
             },
             (error)=>{
                 let msgErreur = error.error;
                 if (error.status == 0)
                     msgErreur = "Connexion à distance impossible"
-                toastr.error(`Connexion impossible :<br> <small class="text-ultralight">${msgErreur}</small>`, "", {
+                    toastr.error(`Connexion impossible :<br> <small class="text-ultralight">${msgErreur}</small>`, "", {
                     "closeButton": false,
                     "debug": false,
                     "newestOnTop": true,
