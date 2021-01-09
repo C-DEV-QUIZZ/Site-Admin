@@ -10,16 +10,17 @@ declare let toastr: any;
 })
 export class QuestionsComponent implements OnInit {
 
-    constructor(private globals: Globals, private ajaxSerice: AjaxService) { }
+    constructor(private globals: Globals, private ajaxService: AjaxService) { }
 
     questions;
+    IdQuestionASupprimer;
 
     ngOnInit(): void {
         this.globals.ifAdminIsConnect();
     }
 
-    GetAllQuertion(): any {
-        this.ajaxSerice.getAllQuestion().subscribe(
+    GetAllQuestions(): any {
+        this.ajaxService.getAllQuestion().subscribe(
             (response) => {
                 var stringJson = JSON.stringify(response)
                 var Json = JSON.parse(stringJson);
@@ -60,27 +61,29 @@ export class QuestionsComponent implements OnInit {
         console.log(e.value);
     }
 
-
     modifQuestion(button): any {
 
         var blocQuestion = button.parentNode;
         var blocReponse = blocQuestion.nextSibling;
         var buttonActualisation = blocReponse.nextSibling;
+        var buttonSupprimer= buttonActualisation.nextSibling;
         var inputPoint = button.previousSibling.firstChild;
         var textAreaQuestion = blocQuestion.firstChild.firstChild;
+        var selectDifficulte = button.previousSibling.previousSibling;
 
+        console.log(selectDifficulte.value);
 
         // console.log(blocQuestion);
         // console.log(textAreaQuestion.disabled= !textAreaQuestion.disabled );
-
         // console.log(inputPoint);
+
         // active desactive le textarea question : 
+        // active desactive le input points : 
+        // active desactive le select difficulte : 
+        // active desactive les réponses : 
         textAreaQuestion.disabled = !textAreaQuestion.disabled;
         inputPoint.disabled = !inputPoint.disabled;
-
-        //console.log(blocReponse);
-
-        // active desactive les réponses : 
+        selectDifficulte.disabled = !selectDifficulte.disabled;
         Array.from(blocReponse.children).forEach((rep: any) => {
             var inputReponse = rep.firstChild;
             inputReponse.disabled = !inputReponse.disabled;
@@ -88,17 +91,22 @@ export class QuestionsComponent implements OnInit {
 
         // active desactive le bouton mise à jour : 
         buttonActualisation.hidden = !buttonActualisation.hidden
+        buttonSupprimer.hidden = !buttonSupprimer.hidden
 
     }
 
-    UpdateQuestion(idQuestion, btnUpdate) {
+    sendUpdateQuestion(idQuestion, btnUpdate) {
+        var btnAnnuler= btnUpdate.nextSibling;
+        btnUpdate.hidden=true;
+        btnAnnuler.hidden=true;
+
         var ArrayReponse = [];
         var IdBonneReponse;
         var txtBonneReponse;
         var blocReponse = btnUpdate.previousSibling;
         var Question = blocReponse.previousSibling.firstChild.firstChild.value;
         var Points =blocReponse.previousSibling.lastChild.previousSibling.firstChild.value;
-
+        var difficulte = blocReponse.previousSibling.firstChild.nextSibling.value;
 
             Array.from(blocReponse.children).forEach((rep: any) => {
                 var inputReponse = rep.firstChild;
@@ -111,14 +119,6 @@ export class QuestionsComponent implements OnInit {
                 }
             });
 
-
-        // console.log(idQuestion);
-        // console.log(Question);
-        console.log(Points);
-        console.log(txtBonneReponse);
-        // console.log(ArrayReponse);
-        // console.log(IdBonneReponse);
-
         var data = `
         {
             "id": ${idQuestion},
@@ -130,12 +130,13 @@ export class QuestionsComponent implements OnInit {
             },
             "reponses":[${ArrayReponse}],
             "difficultes": {
-                "id": 1,
+                "id": ${difficulte},
                 "nom": ""
             }
         }`;
 
-        this.ajaxSerice.updateQuestion(data).subscribe(
+        console.log(data);
+        this.ajaxService.updateQuestion(data).subscribe(
             (response) => {
                 toastr.success("Mise à jour de la question", "Mise à jour Ok", {
                     "closeButton": false,
@@ -183,6 +184,48 @@ export class QuestionsComponent implements OnInit {
         // formater au format 
         // faire un put
 
+        btnUpdate.hidden=false;
+        btnAnnuler.hidden=false;
+    }
 
+    changeDifficulte(select){
+        var classe;
+        select.classList.remove("bg-blue");
+        select.classList.remove("bg-green");
+        select.classList.remove("bg-red");
+        switch(select.value)
+        {
+            case "1":
+                classe ="bg-blue";
+                break;
+            case "2":
+                classe ="bg-green";
+                break;
+            default:
+                classe ="bg-red";
+                break;
+        }
+        select.classList.add(classe);
+
+    }
+
+    deleteQuestion(){
+        if(this.IdQuestionASupprimer == null)
+            return;
+        console.log("suppression de la question avec l'id " + this.IdQuestionASupprimer);    
+        this.ajaxService.deleteQuestion(this.IdQuestionASupprimer).subscribe(
+            (Response)=>{
+                console.log("ok");
+            },
+            (error)=>{
+                console.log("erreur");
+            }
+        )
+
+        this.IdQuestionASupprimer="";
+    }
+
+    getIdQuestionASupprimer(id){
+        this.IdQuestionASupprimer = id;
     }
 }

@@ -34,10 +34,16 @@ export class AjaxService{
 
     private urlUpdateQuestion = this.adresse + "questions/update"
 
+    private urlDeleteQuestion = this.adresse + "questions/delete"
+
     updateQuestion(data){
         let headers = new HttpHeaders();
             headers = headers.set('Content-Type', 'application/json; charset=utf-8');
         return this.http.put(this.urlUpdateQuestion, data,{headers: headers})
+    }
+
+    deleteQuestion(id){
+        return this.http.delete(this.urlDeleteQuestion+`/${id}`);
     }
     
     getModeInscriptionSiteAdmin(){
