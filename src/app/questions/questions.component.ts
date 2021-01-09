@@ -25,7 +25,6 @@ export class QuestionsComponent implements OnInit {
                 var stringJson = JSON.stringify(response)
                 var Json = JSON.parse(stringJson);
                 this.questions = Json;
-                console.log(response);
             },
             (error) => {
                 let msgErreur = error.error;
@@ -134,8 +133,6 @@ export class QuestionsComponent implements OnInit {
                 "nom": ""
             }
         }`;
-
-        console.log(data);
         this.ajaxService.updateQuestion(data).subscribe(
             (response) => {
                 toastr.success("Mise à jour de la question", "Mise à jour Ok", {
@@ -213,16 +210,15 @@ export class QuestionsComponent implements OnInit {
         if(this.IdQuestionASupprimer == null)
             return;
         console.log("suppression de la question avec l'id " + this.IdQuestionASupprimer);    
+
         this.ajaxService.deleteQuestion(this.IdQuestionASupprimer).subscribe(
             (Response)=>{
-                console.log("ok");
+                document.getElementById("div" +this.IdQuestionASupprimer).remove();
             },
             (error)=>{
                 console.log("erreur");
             }
         )
-
-        this.IdQuestionASupprimer="";
     }
 
     getIdQuestionASupprimer(id){

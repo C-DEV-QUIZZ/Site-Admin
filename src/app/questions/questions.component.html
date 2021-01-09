@@ -11,7 +11,7 @@
 
 
 <div class="conteneur col-md-10">
-    <div *ngFor="let question of questions" class="m-5">
+    <div *ngFor="let question of questions" class="m-5" id="div{{question.id}}">
         <div class="d-flex flex-align-center">
 
             <textarea data-role="textarea" disabled class="text-left fg-black" data-prepend="<span class='mif-leanpub'></span>">{{ question.texte }} ? </textarea>
