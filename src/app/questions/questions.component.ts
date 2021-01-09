@@ -28,7 +28,7 @@ export class QuestionsComponent implements OnInit {
                 console.log(response);
             },
             (error) => {
-                let msgErreur;
+                let msgErreur = error.error;
                 if (error.status == 0)
                     msgErreur = "Connexion à distance impossible"
                 toastr.error(`Connexion impossible :<br> <small class="text-ultralight">${msgErreur}</small>`, "", {
@@ -157,7 +157,7 @@ export class QuestionsComponent implements OnInit {
                 });
             },
             (error) => {
-                let msgErreur;
+                let msgErreur = error.error;
                 if (error.status == 0)
                     msgErreur = "Connexion à distance impossible"
                 toastr.error(`Connexion impossible :<br> <small class="text-ultralight">${msgErreur}</small>`, "", {

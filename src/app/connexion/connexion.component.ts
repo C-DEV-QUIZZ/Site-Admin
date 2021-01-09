@@ -36,7 +36,7 @@ export class ConnexionComponent implements OnInit {
                 this.modeInscription = Boolean(responseBody);
             },
             (error) => {
-                let msgErreur;
+                let msgErreur = error.error;
                 if (error.status == 0)
                     msgErreur = "Connexion à distance impossible"
                 toastr.error(`Connexion impossible :<br> <small class="text-ultralight">${msgErreur}</small>`, "", {
