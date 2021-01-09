@@ -45,7 +45,6 @@ export class CreationComponent implements OnInit {
 
     // lorsque l'on change la valeur du nombre de point
     changeNumber(e){
-        console.log(e)
         if(e>20)
             e=20
         if(e<1)

@@ -142,7 +142,6 @@ export class ConnexionComponent implements OnInit {
         }
         this.ajaxService.postInscription(data).subscribe(
             (response) => {                           //Next callback
-                console.log(response);
                 toastr.success("Un email de confirmation à été envoyé", "Inscription Ok", {
                     "closeButton": false,
                     "debug": false,
