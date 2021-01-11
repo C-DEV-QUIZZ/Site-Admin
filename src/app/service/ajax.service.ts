@@ -10,7 +10,8 @@ export class AjaxService{
 
 
     // private adresse= "http://localhost:6969/" //local
-    private adresse= "https://quizz.servehttp.com/" // distante
+    //private adresse= "https://quizz.servehttp.com/" // prod distante
+    private adresse= "https://dev-quizz.servehttp.com/" // dev distante
 
     private http:HttpClient;
     
