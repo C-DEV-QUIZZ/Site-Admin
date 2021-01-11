@@ -68,8 +68,10 @@
 
 </div>
 
-<h1>Version 1.2 branch-developpement : deploiement automatique</h1>
-<ul>
-    <li>Pointe vers l'API de dev</li>
-    <li>Adresse de connextion a l'api : {{ adresseApi }}</li>
-</ul>
+<div *ngIf="!isProduce">
+    <ul>
+        <li>Version : {{ nbVersion }}: deploiement automatique</li>
+        <li>Adresse de connextion a l'api : {{ adresseApi }}</li>
+    </ul>
+</div>
+
