@@ -25,6 +25,8 @@ export class ConnexionComponent implements OnInit {
     // désactive le tabs Inscription;
     modeInscription = false;
 
+    nbVersion = environment.appVersion;
+    isProduce= environment.production;
     adresseApi;
     constructor(private globals: Globals, public ajaxService: AjaxService, private router: Router) {
         this.adresseApi = ajaxService.adresse;
