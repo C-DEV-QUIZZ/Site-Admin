@@ -9,9 +9,6 @@ import { environment } from 'src/environments/environment';
 })
 export class AjaxService{
 
-
-    // private adresse= "http://localhost:6969/" //local
-    //private adresse= "https://quizz.servehttp.com/" // prod distante
     public adresse= environment.adresse;
 
     private http:HttpClient;
