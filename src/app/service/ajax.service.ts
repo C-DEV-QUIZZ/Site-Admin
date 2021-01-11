@@ -1,6 +1,7 @@
 import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core'
 import { HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 
 
 @Injectable({
@@ -11,7 +12,7 @@ export class AjaxService{
 
     // private adresse= "http://localhost:6969/" //local
     //private adresse= "https://quizz.servehttp.com/" // prod distante
-    private adresse= "https://dev-quizz.servehttp.com/" // dev distante
+    public adresse= environment.adresse;
 
     private http:HttpClient;
     
