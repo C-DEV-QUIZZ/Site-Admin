@@ -5,7 +5,9 @@
 export const environment = {
   production: false,
   adresse : "http://localhost:6969/",
-  appVersion: require('../../package.json').version + ' en local'
+  appVersion: require('../../package.json').version + ' en local',
+  cssFondAttribut:"background",
+  cssFondValue:"white"
 };
 
 /*
