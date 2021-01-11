@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Cookie } from 'ng2-cookies';
+import { environment } from 'src/environments/environment';
 import { Globals } from '../global';
 import { AjaxService } from '../service/ajax.service';
 declare let toastr: any;
@@ -24,8 +25,9 @@ export class ConnexionComponent implements OnInit {
     // désactive le tabs Inscription;
     modeInscription = false;
 
+    adresseApi;
     constructor(private globals: Globals, public ajaxService: AjaxService, private router: Router) {
-
+        this.adresseApi = ajaxService.adresse;
     }
 
     ngOnInit(): void {
