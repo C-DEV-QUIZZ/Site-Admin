@@ -1,9 +1,9 @@
 export const environment = {
   production: true,
-  adresse : "",
-  appVersion: require('../../package.json').version + '-prod',
+  adresse : "https://quizz.servehttp.com/",
+  appVersion: require('../../package.json').version,
   cssFondAttribut:"background-image",
-  typeEnvironnement :"",
+  typeEnvironnement :"production",
   cssFondValue:"url(../../assets/img/faq.jpg)",
   NomSite:"Administration site"
 };
