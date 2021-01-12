@@ -4,6 +4,7 @@ export const environment = {
     production: false,
     adresse : "https://dev-quizz.servehttp.com/",
     cssFondAttribut:"background",
+    typeEnvironnement :"Developpement",
     cssFondValue:"skyblue",
     NomSite:"Dev-administration site"
 };
