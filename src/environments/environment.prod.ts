@@ -3,5 +3,6 @@ export const environment = {
   adresse : "",
   appVersion: require('../../package.json').version + '-prod',
   cssFondAttribut:"background-image",
-  cssFondValue:"url(../../assets/img/faq.jpg)"
+  cssFondValue:"url(../../assets/img/faq.jpg)",
+  NomSite:"Administration site"
 };
