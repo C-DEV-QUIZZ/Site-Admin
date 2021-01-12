@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, Renderer2 } from '@angular/core';
 import { Router } from '@angular/router';
 import { Cookie } from 'ng2-cookies';
 import { environment } from 'src/environments/environment';
@@ -27,9 +27,14 @@ export class ConnexionComponent implements OnInit {
 
     nbVersion = environment.appVersion;
     isProduce= environment.production;
+
+    cssAttribut = environment.cssFondAttribut;
+    cssFondValue = environment.cssFondValue;
+
     adresseApi;
-    constructor(private globals: Globals, public ajaxService: AjaxService, private router: Router) {
+    constructor(private globals: Globals, public ajaxService: AjaxService, private router: Router,private elementRef: ElementRef, private renderer: Renderer2) {
         this.adresseApi = ajaxService.adresse;
+        this.renderer.setStyle(this.elementRef.nativeElement, this.cssAttribut, this.cssFondValue);
     }
 
     ngOnInit(): void {
