@@ -1,3 +1,9 @@
 export const environment = {
-  production: true
+  production: true,
+  adresse : "",
+  appVersion: require('../../package.json').version + '-prod',
+  cssFondAttribut:"background-image",
+  typeEnvironnement :"",
+  cssFondValue:"url(../../assets/img/faq.jpg)",
+  NomSite:"Administration site"
 };

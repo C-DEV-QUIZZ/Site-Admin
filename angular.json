@@ -55,6 +55,14 @@
                   "maximumError": "10kb"
                 }
               ]
+            },
+            "developpement":{
+              "fileReplacements":[
+                  {
+                    "replace":"src/environments/environment.ts",
+                    "with":"src/environments/environment.developpement.ts"
+                  }
+              ]
             }
           }
         },
@@ -66,6 +74,9 @@
           "configurations": {
             "production": {
               "browserTarget": "administrationSite:build:production"
+            },
+            "developpement": {
+              "browserTarget": "administrationSite:build:developpement"
             }
           }
         },

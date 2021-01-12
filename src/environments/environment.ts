@@ -3,7 +3,13 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  adresse : "http://localhost:6969/",
+  appVersion: require('../../package.json').version,
+  typeEnvironnement :"Local",
+  cssFondAttribut:"background",
+  cssFondValue:"white",
+  NomSite:"Local-administration site"
 };
 
 /*
