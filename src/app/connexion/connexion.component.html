@@ -70,8 +70,9 @@
 
 <div *ngIf="!isProduce">
     <ul>
-        <li>Version : {{ nbVersion }}: deploiement automatique</li>
-        <li>Adresse de connextion a l'api : {{ adresseApi }}</li>
+        <li>Type environnement: <span class="text-bold">{{ typeEnvironnement }}</span> </li>
+        <li>Version : <span class="text-bold">{{ nbVersion }}</span> </li>
+        <li>Adresse de connexion a l'api : <span class="text-bold">{{ adresseApi }}</span> </li>
     </ul>
 </div>
 

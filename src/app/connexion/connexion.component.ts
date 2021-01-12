@@ -27,7 +27,7 @@ export class ConnexionComponent implements OnInit {
 
     nbVersion = environment.appVersion;
     isProduce= environment.production;
-
+    typeEnvironnement = environment.typeEnvironnement;
     cssAttribut = environment.cssFondAttribut;
     cssFondValue = environment.cssFondValue;
 
