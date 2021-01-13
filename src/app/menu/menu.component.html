@@ -14,6 +14,7 @@
             <li class="ml-auto">
                 <a href="/{{ global.libelle_compte }}" class="text-cap">{{ global.libelle_compte }}</a>
             </li>
+            <li *ngIf="global.libelle_compte=='compte'"><a href="/parametres">Parametres site</a></li>
             <li *ngIf="version"><span class="text-small fg-gray version">{{ version }}</span></li>
         </ul>
     </div>
