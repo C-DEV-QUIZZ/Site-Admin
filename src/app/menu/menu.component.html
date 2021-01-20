@@ -1,20 +1,20 @@
 <div class="bloc">
     <div class="menu" data-role="appbar" data-expand-point="md">
-        <a href="/" class="brand no-hover">
+        <a routerLink="/" class="brand no-hover">
             <img class="imgResponsive"   src="../../assets/img/questionMarks.png" alt="">
         </a>
     
         <ul class="app-bar-menu bar-menu">
-            <li><a href="/">Accueil</a></li>
+            <li><a routerLink="/">Accueil</a></li>
             <li>
-                <a href="/gestion-utilisateur">Gestion utilisateur</a>
+                <a routerLink="/gestion-utilisateur">Gestion utilisateur</a>
             </li>
-            <li><a href="/questions">Questions</a></li>
-            <li><a href="/creation">Création</a></li>
+            <li><a routerLink="/questions">Questions</a></li>
+            <li><a routerLink="/creation">Création</a></li>
             <li class="ml-auto">
-                <a href="/{{ global.libelle_compte }}" class="text-cap">{{ global.libelle_compte }}</a>
+                <a routerLink="/{{ global.libelle_compte }}" class="text-cap">{{ global.libelle_compte }}</a>
             </li>
-            <li *ngIf="global.libelle_compte=='compte'"><a href="/parametres">Parametres site</a></li>
+            <li *ngIf="global.libelle_compte=='compte'"><a routerLink="/parametres">Parametres site</a></li>
             <li *ngIf="version"><span class="text-small fg-gray version">{{ version }}</span></li>
         </ul>
     </div>
