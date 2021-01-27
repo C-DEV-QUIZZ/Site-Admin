@@ -11,7 +11,7 @@ import { ParametresComponent } from './parametres/parametres.component';
 import { QuestionsComponent } from './questions/questions.component';
 
 const routes: Routes = [
-  { path: '/', component: AccueilComponent },
+  { path: '', component: AccueilComponent },
   { path: 'connexion', component: ConnexionComponent },
   { path: 'confirmationInscription', component: ConfirmationInscriptionComponent },
   { path: 'questions', component: QuestionsComponent },
