@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Cookie } from 'ng2-cookies';
 import { environment } from 'src/environments/environment';
 import { Globals } from '../global';
 
@@ -9,12 +10,11 @@ import { Globals } from '../global';
 })
 export class MenuComponent implements OnInit {
 
-
-  version = environment.production ? environment.appVersion : null;
-
   constructor(private globals: Globals) { 
     this.global = globals;
   }
+  
+  version = environment.production ? environment.appVersion : null;
 
   global :Globals
   

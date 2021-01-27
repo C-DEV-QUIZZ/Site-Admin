@@ -35,6 +35,10 @@ export class AjaxService{
 
     private urlDeleteQuestion = this.adresse + "questions/delete"
 
+    private urlGetAllParametres = this.adresse + "parametres/getall"
+
+    private urlUpdateAllParametres = this.adresse + "parametres/update"
+
     updateQuestion(data){
         let headers = new HttpHeaders();
             headers = headers.set('Content-Type', 'application/json; charset=utf-8');
@@ -72,5 +76,13 @@ export class AjaxService{
     postifUserAuthorized(data){
         return this.http.post(this.urlIfUserAuthorizedToNavigate,data);
     }
+
+    getAllParametres(){
+        return this.http.get(this.urlGetAllParametres);
+    }
+    UpdateParametres(data){
+        return this.http.put(this.urlUpdateAllParametres,data);
+    }
+
 
 }

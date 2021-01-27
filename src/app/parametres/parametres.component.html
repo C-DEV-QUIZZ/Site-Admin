@@ -1,0 +1,41 @@
+<h1>Paramètres du site</h1>
+
+<div class="container-fluid col-md-6">
+
+    <table class="table striped cell-border table-border">
+        <thead>
+        <tr>
+            <th class="bg-blue">Nom du parametres</th>
+            <th class="bg-blue text-right">Mode inscription</th>
+        </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let parametre of parametres">
+                <td class="w-75">{{ parametre.nomSysteme }}</td>
+                <td class="text-center tdSize"><span class="margSpan fg-red">{{!parametre.modeInscription ? 'désactivé':''}}</span><input type="checkbox" (change)="parametre.modeInscription = !parametre.modeInscription" [checked]="parametre.modeInscription" data-role="switch" data-on="on"><span class="margSpan fg-green">{{parametre.modeInscription ? 'activé':''}}</span></td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="dialog info" data-role="dialog" id="demoDialog1">
+        <div class="dialog-title">Mise à jour des paramètres</div>
+        <div class="dialog-content">
+            <div>
+                <p>Êtes-vous sûr de vouloir actualiser les paramètres?</p>
+
+                <small class="text-ultralight Secondary"> Veuillez entrer votre e-mail et votre mots de passe:</small>
+            </div>
+            <input type="email" class="m-2" [(ngModel)]="utilisateur.email" placeholder="email" data-role="input" data-prepend="<span class='mif-user'></span>">
+            <input type="password" class="m-2" [(ngModel)]="utilisateur.password" placeholder="password" data-role="input" data-prepend="<span class='mif-lock'></span>">
+        
+            <p class="fg-red text-center" id="messageInfos"></p>
+        </div>
+
+        <div class="dialog-actions">
+            <button class="button js-dialog-close" id="btnClose">Annuler</button>
+            <button class="button success float-right"  (click)="updateParametre()">Valider</button>
+        </div>
+    </div>
+    <button class="button warning outline rounded float-right" onclick="Metro.dialog.open('#demoDialog1')">Mettre à jour</button>
+
+</div>
+

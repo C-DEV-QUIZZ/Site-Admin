@@ -15,6 +15,7 @@ import { QuestionsComponent } from './questions/questions.component';
 import { GestionCompteComponent } from './gestion-compte/gestion-compte.component';
 import { GestionUtilisateurComponent } from './gestion-utilisateur/gestion-utilisateur.component';
 import { CreationComponent } from './creation/creation.component';
+import { ParametresComponent } from './parametres/parametres.component';
 
 
 @NgModule({
@@ -28,7 +29,8 @@ import { CreationComponent } from './creation/creation.component';
     QuestionsComponent,
     GestionCompteComponent,
     GestionUtilisateurComponent,
-    CreationComponent
+    CreationComponent,
+    ParametresComponent
   ],
   imports: [
     BrowserModule,
