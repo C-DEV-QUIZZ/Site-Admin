@@ -36,8 +36,7 @@ import { ParametresComponent } from './parametres/parametres.component';
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule,
-    FormsModule,
+    HttpClientModule
   ],
   providers: [Globals],
   bootstrap: [AppComponent]

@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  adresse : "http://localhost:6969/",
+  adresse : "http://192.168.1.33:6969/",
   appVersion: require('../../package.json').version,
   typeEnvironnement :"Local",
   cssFondAttribut:"background",
