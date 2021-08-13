@@ -290,18 +290,4 @@ export class ConnexionComponent implements OnInit {
                 this.activeChargement(false, "btnConfirmConnexion", "attConfirmConnnexion");
             });
     }
-
-
-    essai(){
-        this.ajaxService.testUrl().subscribe(
-            (response)=>
-            {
-                console.log(response);
-            },
-            (error)=>{
-                console.log(error);
-            }
-            
-        );
-    }
 }
