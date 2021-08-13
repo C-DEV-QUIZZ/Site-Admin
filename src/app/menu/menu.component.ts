@@ -22,4 +22,8 @@ export class MenuComponent implements OnInit {
 
   }
 
+  deconnection(){
+    Cookie.deleteAll(Globals.COOKIE_NAME);
+    document.location.reload();
+  }
 }

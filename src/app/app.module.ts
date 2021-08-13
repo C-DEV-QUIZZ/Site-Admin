@@ -12,8 +12,6 @@ import { Globals } from './global';
 import { ConfirmationInscriptionComponent } from './confirmation-inscription/confirmation-inscription.component';
 import { ErrorComponent } from './error/error.component';
 import { QuestionsComponent } from './questions/questions.component';
-import { GestionCompteComponent } from './gestion-compte/gestion-compte.component';
-import { GestionUtilisateurComponent } from './gestion-utilisateur/gestion-utilisateur.component';
 import { CreationComponent } from './creation/creation.component';
 import { ParametresComponent } from './parametres/parametres.component';
 
@@ -27,8 +25,6 @@ import { ParametresComponent } from './parametres/parametres.component';
     ConfirmationInscriptionComponent,
     ErrorComponent,
     QuestionsComponent,
-    GestionCompteComponent,
-    GestionUtilisateurComponent,
     CreationComponent,
     ParametresComponent
   ],

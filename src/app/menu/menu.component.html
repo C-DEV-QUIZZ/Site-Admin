@@ -6,15 +6,13 @@
     
         <ul class="app-bar-menu bar-menu">
             <li><a routerLink="/">Accueil</a></li>
-            <li>
-                <a routerLink="/gestion-utilisateur">Gestion utilisateur</a>
-            </li>
             <li><a routerLink="/questions">Questions</a></li>
             <li><a routerLink="/creation">Création</a></li>
             <li class="ml-auto">
-                <a routerLink="/{{ global.libelle_compte }}" class="text-cap">{{ global.libelle_compte }}</a>
+                <a routerLink="/{{ global.libelle_compte }}" class="text-cap"></a>
             </li>
             <li *ngIf="global.libelle_compte=='compte'"><a routerLink="/parametres">Parametres site</a></li>
+            <li *ngIf="global.libelle_compte=='compte'"><button class="button alert" (click)="deconnection()">Deconnexion</button></li>
             <li *ngIf="version"><span class="text-small fg-gray version">{{ version }}</span></li>
         </ul>
     </div>
