@@ -243,6 +243,7 @@ export class ConnexionComponent implements OnInit {
                 let JsonResult = JSON.parse(stringResult);
                 let timeConnexion = 0.041; // 1h
                 Cookie.set(Globals.COOKIE_NAME, JsonResult.token, timeConnexion);
+
                 this.globals.libelle_compte = Globals.COMPTE_STRING;
 
                 toastr.success(`<span id="toast">Bienvenue ${JsonResult.nom} ${JsonResult.prenom}</span>`, "Connexion Ok", {
