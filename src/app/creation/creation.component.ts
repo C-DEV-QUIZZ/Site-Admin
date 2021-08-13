@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Globals } from '../global';
 import { AjaxService } from '../service/ajax.service';
 declare let toastr :any;
-
+declare let Metro:any;
 @Component({
     selector: 'app-creation',
     templateUrl: './creation.component.html',
@@ -19,6 +19,7 @@ export class CreationComponent implements OnInit {
     bonneReponse:string;
     reponsesArray : Array<String> =  [];
     nbPoint="10";
+    isMulti= "1";
 
     ngOnInit(): void {
         this.globals.ifAdminIsConnect();
@@ -56,17 +57,17 @@ export class CreationComponent implements OnInit {
     onClickSubmit() {
 
         if(this.globals.if_Undefind_EmptyOrSpaces(this.questionTexte)){
-            this.globals.PrintMessage("messageInformation","Veuillez renseigner la question");
+            this.globals.PrintMessage("messageInformation","Veuillez renseigner la question svp!");
             return;
         }
 
-        if(this.reponsesArray.length==0){
-            this.globals.PrintMessage("messageInformation","Veuillez renseigner au minimum une réponse");
+        if(this.reponsesArray.length<2){
+            this.globals.PrintMessage("messageInformation","Veuillez renseigner au minimum deux réponses svp!");
             return;
         }        
 
         if(this.globals.if_Undefind_EmptyOrSpaces(this.bonneReponse)){
-            this.globals.PrintMessage("messageInformation","Veuillez renseigner la bonne réponse");
+            this.globals.PrintMessage("messageInformation","Veuillez renseigner la bonne réponse svp!");
             return;
         }
 
@@ -75,47 +76,23 @@ export class CreationComponent implements OnInit {
         .append("difficulte",this.levelDifficulte)
         .append("points",this.nbPoint)
         .append("bonneReponse",this.bonneReponse)
-        .append("reponses",this.reponsesArray.toLocaleString());
+        .append("reponses",this.reponsesArray.toLocaleString())
+        .append("isMulti",this.isMulti);
 
         this.ajaxService.postCreateQuestion(httpParams).subscribe( 
         
             (response) => {                           //Next callback
-                toastr.success("ok", "creation question Ok", {
-                    "closeButton": false,
-                    "debug": false,
-                    "newestOnTop": false,
-                    "progressBar": true,
-                    "positionClass": "toast-top-right",
-                    "preventDuplicates": false,
-                    "onclick": null,
-                    "showDuration": "300",
-                    "hideDuration": "1000",
-                    "timeOut": "5000",
-                    "extendedTimeOut": "1000",
-                    "showEasing": "swing",
-                    "hideEasing": "linear",
-                    "showMethod": "fadeIn",
-                    "hideMethod": "fadeOut"
-                });
+                Metro.infobox.create(`
+                <h3>ENREGISTREMENT OK!</h3>
+                <p>La page va recharger dans 2s...</p>`, "success");
+                setTimeout(()=>{
+                    document.location.reload();
+                },2000);
         },
-            (error) => {                              //Error callback
-                toastr.error(`Erreur lors de l'enregistrement de la question :<br> <small class="text-ultralight">${error.error}</small>`, "", {
-                    "closeButton": false,
-                    "debug": false,
-                    "newestOnTop": true,
-                    "progressBar": true,
-                    "positionClass": "toast-top-right",
-                    "preventDuplicates": false,
-                    "onclick": null,
-                    "showDuration": "300",
-                    "hideDuration": "1000",
-                    "timeOut": "5000",
-                    "extendedTimeOut": "1000",
-                    "showEasing": "swing",
-                    "hideEasing": "linear",
-                    "showMethod": "fadeIn",
-                    "hideMethod": "fadeOut"
-                });
+            (error) => { 
+                Metro.infobox.create(`
+                <h3>ERREUR LORS DE L'ENREGISTREMENT DE LA QUESTION!</h3>
+                <small class="text-ultralight">${error.error}</small>`, "alert");       
         })
     }
 

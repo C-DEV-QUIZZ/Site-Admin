@@ -12,9 +12,22 @@
     </div> 
 
     <div class="row d-flex flex-align-center m-10 w-100 flex-justify-center remark">
-        <h6 id="lblPoint">Nombre de points : </h6>
+        <h6 id="lblPoint">Nombre de points :
+            <small>
+                <cite title="Source Title" class="text-ultralight">(min:0 / max:20)</cite>
+            </small>
+        </h6>
         <input class="input-small cell-2" [(ngModel)]="nbPoint" name="nbPoint" (change)="changeNumber($event.target.value)" type="number" data-role="spinner" data-min-value="1" data-max-value="20">
+        <div class="row d-flex flex-align-center w-100 flex-justify-center">
+            <h6 id="lblMode">Mode:</h6>
+            <div style="margin-left:50px;">
+                <input [(ngModel)]="isMulti" value="0" name="mode" data-cls-check="bd-cyan" class="fg-blue" type="radio" data-role="radio" data-caption="solo" data-caption-position="left">
+                <input [(ngModel)]="isMulti" value="1" name="mode" data-cls-check="bd-green" class="fg-green" type="radio" data-role="radio" data-caption="multi" data-caption-position="left">
+            </div>
+        </div>
+    
     </div>
+
 
     <div class="d-flex flex-column flex-align-center w-100 remark">
         <h6>Tapez ici la question     

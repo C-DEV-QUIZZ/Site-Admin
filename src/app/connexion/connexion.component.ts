@@ -43,6 +43,23 @@ export class ConnexionComponent implements OnInit {
         this.ajaxService.getModeInscriptionSiteAdmin().subscribe(
             (responseBody) => {
                 this.modeInscription = Boolean(responseBody);
+                toastr.success("Connexion distante OK", "Ping Ok", {
+                    "closeButton": false,
+                    "debug": false,
+                    "newestOnTop": false,
+                    "progressBar": true,
+                    "positionClass": "toast-top-right",
+                    "preventDuplicates": false,
+                    "onclick": null,
+                    "showDuration": "300",
+                    "hideDuration": "1000",
+                    "timeOut": "5000",
+                    "extendedTimeOut": "1000",
+                    "showEasing": "swing",
+                    "hideEasing": "linear",
+                    "showMethod": "fadeIn",
+                    "hideMethod": "fadeOut"
+                });
             },
             (error) => {
                 let msgErreur = error.error;
@@ -229,7 +246,7 @@ export class ConnexionComponent implements OnInit {
 
                 this.globals.libelle_compte = Globals.COMPTE_STRING;
 
-                toastr.success(`Bienvenue ${JsonResult.nom} ${JsonResult.prenom} `, "Connexion Ok", {
+                toastr.success(`<span id="toast">Bienvenue ${JsonResult.nom} ${JsonResult.prenom}</span>`, "Connexion Ok", {
                     "closeButton": false,
                     "debug": false,
                     "newestOnTop": false,
@@ -253,7 +270,7 @@ export class ConnexionComponent implements OnInit {
                 let msgErreur = error.error;
                 if (error.status == 0)
                     msgErreur = "Connexion à distance impossible"
-                toastr.error(`Connexion impossible :<br> <small class="text-ultralight">${msgErreur}</small>`, "", {
+                toastr.error(`<span id="toast">Connexion impossible :<br> <small class="text-ultralight">${msgErreur}</small></span>`, "", {
                     "closeButton": false,
                     "debug": false,
                     "newestOnTop": true,
@@ -273,5 +290,4 @@ export class ConnexionComponent implements OnInit {
                 this.activeChargement(false, "btnConfirmConnexion", "attConfirmConnnexion");
             });
     }
-
 }

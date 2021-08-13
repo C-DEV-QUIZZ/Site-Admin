@@ -12,7 +12,7 @@ export class QuestionsComponent implements OnInit {
 
     constructor(private globals: Globals, private ajaxService: AjaxService) { }
 
-    questions;
+    questionsList;
     IdQuestionASupprimer;
 
     ngOnInit(): void {
@@ -24,7 +24,7 @@ export class QuestionsComponent implements OnInit {
             (response) => {
                 var stringJson = JSON.stringify(response)
                 var Json = JSON.parse(stringJson);
-                this.questions = Json;
+                this.questionsList = Json;
             },
             (error) => {
                 let msgErreur = error.error;
@@ -59,22 +59,24 @@ export class QuestionsComponent implements OnInit {
             iptPoints.value = 1;
     }
 
-    EnableDisableBLoc(button): any {
+    EnableDisableBLoc(button,questionId): any {
         var blocQuestion = button.parentNode;
+        var BlocMode= document.getElementById("divMode"+questionId);
         var blocReponse = blocQuestion.nextSibling;
         var buttonActualisation = blocReponse.nextSibling;
         var buttonSupprimer= buttonActualisation.nextSibling;
         var inputPoint = button.previousSibling.firstChild;
         var textAreaQuestion = blocQuestion.firstChild.firstChild;
         var selectDifficulte = button.previousSibling.previousSibling;
-        this.ToggleElementQuestion(textAreaQuestion,inputPoint,selectDifficulte,blocReponse,buttonActualisation,buttonSupprimer);
+        this.ToggleElementQuestion(textAreaQuestion,inputPoint,selectDifficulte,blocReponse,buttonActualisation,buttonSupprimer,BlocMode);
     }
 
-    ToggleElementQuestion(textAreaQuestion,inputPoint,selectDifficulte,blocReponse,buttonActualisation,buttonSupprimer,toggle=true){
+    ToggleElementQuestion(textAreaQuestion,inputPoint,selectDifficulte,blocReponse,buttonActualisation,buttonSupprimer,BlocMode,toggle=true){
         if (toggle){
             textAreaQuestion.disabled = !textAreaQuestion.disabled;
             inputPoint.disabled = !inputPoint.disabled;
             selectDifficulte.disabled = !selectDifficulte.disabled;
+            BlocMode.disabled = !BlocMode.disabled;
             Array.from(blocReponse.children).forEach((rep: any) => {
                 var inputReponse = rep.firstChild;
                 inputReponse.disabled = !inputReponse.disabled;
@@ -96,6 +98,7 @@ export class QuestionsComponent implements OnInit {
     }
 
     sendUpdateQuestion(idQuestion, btnUpdate) {
+
         var btnAnnuler= btnUpdate.nextSibling;
         btnUpdate.hidden=true;
         btnAnnuler.hidden=true;
@@ -109,6 +112,7 @@ export class QuestionsComponent implements OnInit {
         var difficulte = blocReponse.previousSibling.firstChild.nextSibling;
         var buttonActualisation = blocReponse.nextSibling;
         var buttonSupprimer= buttonActualisation.nextSibling;
+        var BlocMode : any= document.getElementById("divMode"+idQuestion);
 
         Array.from(blocReponse.children).forEach((rep: any) => {
             var inputReponse = rep.firstChild;
@@ -133,7 +137,8 @@ export class QuestionsComponent implements OnInit {
             "difficultes": {
                 "id": ${difficulte.value},
                 "nom": ""
-            }
+            },
+            "isMultiplayer" : ${BlocMode.value}
         }`;
         this.ajaxService.updateQuestion(data).subscribe(
             (response) => {
@@ -157,10 +162,8 @@ export class QuestionsComponent implements OnInit {
                 this.ToggleElementQuestion(Question,Points,difficulte,blocReponse,buttonActualisation,buttonSupprimer,false);
             },
             (error) => {
-                let msgErreur = error.error;
-                if (error.status == 0)
-                    msgErreur = "Connexion à distance impossible"
-                toastr.error(`Connexion impossible :<br> <small class="text-ultralight">${msgErreur}</small>`, "", {
+                console.log(error);
+                toastr.error(`Connexion impossible :<br> <small class="text-ultralight">${error.message}</small>`, "", {
                     "closeButton": false,
                     "debug": false,
                     "newestOnTop": true,
@@ -204,6 +207,23 @@ export class QuestionsComponent implements OnInit {
 
     }
 
+    changeMode(select)
+    {
+        var classe;
+        select.classList.remove("bg-blue");
+        select.classList.remove("bg-green");
+        select.classList.remove("bg-red");
+        switch(select.value)
+        {
+            case "0":
+                classe ="bg-blue";
+                break;
+            case "1":
+                classe ="bg-green";
+                break;
+        }
+        select.classList.add(classe);
+    }
     deleteQuestion(){
         if(this.IdQuestionASupprimer == null)
             return;
@@ -252,8 +272,8 @@ export class QuestionsComponent implements OnInit {
             }
         )
     }
-
     getIdQuestionASupprimer(id){
         this.IdQuestionASupprimer = id;
     }
+
 }
