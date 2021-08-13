@@ -1,4 +1,3 @@
-import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core'
 import { HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import { environment } from 'src/environments/environment';
@@ -38,6 +37,8 @@ export class AjaxService{
     private urlGetAllParametres = this.adresse + "parametres/getall"
 
     private urlUpdateAllParametres = this.adresse + "parametres/update"
+
+    private urlinfosHeaders = this.adresse + "infos/headers"
 
     updateQuestion(data){
         let headers = new HttpHeaders();
@@ -84,5 +85,10 @@ export class AjaxService{
         return this.http.put(this.urlUpdateAllParametres,data);
     }
 
-
+    testUrl(){
+        var t="sfdsf351sdfgé%";
+        let headers = new HttpHeaders();
+        headers = headers.set("Authorization", "Bearer " + t);
+    return this.http.post(this.urlinfosHeaders, {headers: headers})
+    }
 }

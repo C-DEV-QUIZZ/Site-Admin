@@ -11,7 +11,13 @@
 <button  (click)="GetAllQuestions()" class="button primary large shadowed rounded outline">(v2.0 sera obtenu directement) Obtenir toutes les questions API</button>
 
 <div class="conteneur col-md-10">
-    <div *ngFor="let question of questions" class="m-5" id="div{{question.id}}">
+    <div *ngFor="let question of questionsList" class="m-5" id="div{{question.id}}">
+
+            <select disabled id="divMode{{question.id}}" class="fg-white" (change)="changeMode($event.target)" [ngClass]="{'bg-blue': question.multiplayer == '0', 'bg-green':question.multiplayer == '1'}">
+                <option value="0" class="bg-white fg-blue" [selected]="question.multiplayer==0">Solo</option>
+                <option value="1" class="bg-white fg-green" [selected]="question.multiplayer== 1">Multi</option>
+            </select>
+
         <div class="d-flex flex-align-center">
 
             <textarea data-role="textarea" disabled class="text-left fg-black" data-prepend="<span class='mif-leanpub'></span>">{{ question.texte }} ? </textarea>
@@ -23,7 +29,7 @@
 
             
             <input class="input-small cell-2 text-center" disabled maxlength="2" value="{{ question.points }}" (change)="changeNumber($event.target)" type="number" data-role="spinner" data-min-value="1" data-max-value="20">
-            <button class="button primary square outline mif-2x mif-pencil btnUpdate" (click)="EnableDisableBLoc($event.target)"></button> 
+            <button class="button primary square outline mif-2x mif-pencil btnUpdate" (click)="EnableDisableBLoc($event.target,question.id)"></button> 
         </div>
 
         <ul>
